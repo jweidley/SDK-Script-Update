@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 # Purpose: Lubuntu ADMIN Menu
-# Version: 0.1
+# Version: 0.2
 ######################################################################################
 
 ################
@@ -13,46 +13,49 @@ from time import sleep
 # Functions
 ################
 def main():
-	choice = '0'
-	while choice == '0':
-		system("/usr/bin/clear")
-		print("=======================================================================")
-		print("|| Juniper SRX Demo Kit: -ADMIN- Lubuntu Menu                        ||")
-		print("=======================================================================")
-		print("1) Update Scripts from GitHub")
-		print("2) Run Troubleshooter Script")
-		print("\nq) Quit the menu")
-		print("=======================================================================")
-		choice = input("\nPlease select a menu item: ")
+    choice = '0'
+    while choice == '0':
+        system("/usr/bin/clear")
+        print("=======================================================================")
+        print("|| Juniper SRX Demo Kit: -ADMIN- Lubuntu Menu                        ||")
+        print("=======================================================================")
+        print("1) Update Scripts from GitHub")
+        print("2) Run Troubleshooter Script")
+        print("\nq) Quit the menu")
+        print("=======================================================================")
+        choice = input("\nPlease select a menu item: ")
 
-		if choice == "1":
-			system("/usr/bin/clear")
-			print("- Cleaning up destination directory...")
-			system("sudo rm -rf /tmp/SDK-Script-Update")
-			print("- Downloading scripts from GitHub...\n")
-			system("/usr/bin/git clone https://github.com/jweidley/SDK-Script-Update.git /tmp/SDK-Script-Update")
-			sleep(2)
-			print("\n- Installing new scripts...")
-			system("/tmp/SDK-Script-Update/update-scripts.sh")
-			print("- Cleaning up destination directory...")
-			system("sudo rm -rf /tmp/SDK-Script-Update")
-			input("--Press Any Key to return to the menu--")
-			main()
-		elif choice == "2":
-			system("/usr/bin/clear")
-			print("...Running Troubleshooter Script...")
+        if choice == "1":
+            system("/usr/bin/clear")
+            print("- Cleaning up destination directory...")
+            system("sudo rm -rf /tmp/SDK-Script-Update")
+            print("- Downloading scripts from GitHub...\n")
+            system("/usr/bin/git clone https://github.com/jweidley/SDK-Script-Update.git /tmp/SDK-Script-Update")
+            sleep(2)
+            print("\n- Installing new scripts...")
+            system("/tmp/SDK-Script-Update/update-scripts.sh")
+            print("- Cleaning up destination directory...")
+            system("sudo rm -rf /tmp/SDK-Script-Update")
+            input("--Press Any Key to return to the menu--")
+            main()
+        elif choice == "2":
+            system("/usr/bin/clear")
+            print("...Running Troubleshooter Script...")
             sleep(3)
             system("/home/juniper/Scripts/Troubleshooter/run_Troubleshooter.py")
             input("... Press Any Key to Continue ...")
-		elif choice == "q":
-			print("Exiting...")
-			exit()
-		else:
-			print("Invalid option...")
-			sleep(2)
-			system("/usr/bin/clear")
-			main()
+        elif choice == "q":
+            print("Exiting...")
+            exit()
+        else:
+            print("Invalid option...")
+            sleep(2)
+            system("/usr/bin/clear")
+            main()
 
+################
+# Main
+################
 main()
 
 ## End of Script ##

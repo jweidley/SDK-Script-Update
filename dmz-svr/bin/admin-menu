@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 # Purpose: DMZ-Svr ADMIN Menu
-# Version: 0.1
+# Version: 0.2
 ######################################################################################
 
 ################
@@ -46,6 +46,9 @@ def main():
 			system("/usr/bin/clear")
 			main()
 
+################
+# Main
+################
 main()
 
 ## End of Script ##
