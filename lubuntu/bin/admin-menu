@@ -41,9 +41,9 @@ def main():
 		elif choice == "2":
 			system("/usr/bin/clear")
 			print("...Running Troubleshooter Script...")
-                        sleep(3)
-                        system("/home/juniper/Scripts/Troubleshooter/run_Troubleshooter.py")
-                        input("... Press Any Key to Continue ...")
+            sleep(3)
+            system("/home/juniper/Scripts/Troubleshooter/run_Troubleshooter.py")
+            input("... Press Any Key to Continue ...")
 		elif choice == "q":
 			print("Exiting...")
 			exit()

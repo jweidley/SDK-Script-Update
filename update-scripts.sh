@@ -62,8 +62,8 @@ sudo cp ${BASE_DIR}/*.sh $BACKUP_DIR
 
 # Backup Lubuntu scripts
 if [[ $HOSTNAME == "lubuntu-wks" ]]; then
-	echo "\t+ Backuping up lubuntu scripts directory"
-	sudo cp -R /home/jumiper/Scripts/* $BACKUP_DIR
+	echo "  + Backuping up lubuntu scripts directory"
+	sudo cp -R /home/juniper/Scripts/* $BACKUP_DIR
 fi
 
 # Copy new scripts to SCRIPT_DIR
@@ -72,8 +72,8 @@ sudo cp ${SCRIPT_DIR}/bin/* $BASE_DIR
 
 # Copy new Lubuntu scripts
 if [[ $HOSTNAME == "lubuntu-wks" ]]; then
-	echo "\t+ Copying new lubuntu scripts"
-	sudo cp -R ${SCRIPT_DIR}/scripts/* /home/jumiper/Scripts/
+	echo "  + Copying new lubuntu scripts"
+	sudo cp -R ${SCRIPT_DIR}/scripts/* /home/juniper/Scripts/
 fi
 
 echo "- Setting permissions and ownership of new script files"
@@ -82,9 +82,9 @@ sudo chown root:root ${BASE_DIR}/*
 
 # Lubuntu specific
 if [[ $HOSTNAME == "lubuntu-wks" ]]; then
-	echo "\t+ Setting permissions on new Lubuntu scripts"
-	sudo chmod 755 /home/jumiper/Scripts/*
-	sudo chown juniper:juniper /home/jumiper/Scripts/*
+	echo "  + Setting permissions on new Lubuntu scripts"
+	sudo chmod 755 /home/juniper/Scripts/*
+	sudo chown juniper:juniper /home/juniper/Scripts/*
 fi
 
 # Clean up install directory
