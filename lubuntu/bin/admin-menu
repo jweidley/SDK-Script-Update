@@ -44,6 +44,7 @@ def main():
             sleep(3)
             system("/home/juniper/Scripts/Troubleshooter/run_Troubleshooter.py")
             input("... Press Any Key to Continue ...")
+            main()
         elif choice == "q":
             print("Exiting...")
             exit()
