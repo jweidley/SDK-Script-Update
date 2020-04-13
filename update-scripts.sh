@@ -27,10 +27,12 @@ echo "========================================================"
 if [[ $HOSTNAME == "SDK-dmz-svr" ]]; then
 	# Check for /tmp for admin-menu
 	if [ -d /tmp/SDK-Script-Update ]; then
+		VERSION="/tmp/SDK-Script-Update/.sdk-script-version"
 		SCRIPT_DIR="/tmp/SDK-Script-Update/dmz-svr"
 	# Default to the current directory
 	else
         	PWD=`/bin/pwd`
+		VERSION="${PWD}/.sdk-script-version"
 		SCRIPT_DIR="${PWD}/dmz-svr"
 	fi
 elif [[ $HOSTNAME == "lubuntu-wks" ]]; then
@@ -74,7 +76,7 @@ fi
 # Copy new scripts to SCRIPT_DIR
 echo "- Copying new scripts to $BASE_DIR"
 sudo cp ${SCRIPT_DIR}/bin/* $BASE_DIR
-sudo cp ${SCRIPT_DIR}/.sdk-script-version $BASE_DIR
+sudo cp ${VERSION} $BASE_DIR
 
 # Copy new Lubuntu scripts
 if [[ $HOSTNAME == "lubuntu-wks" ]]; then
