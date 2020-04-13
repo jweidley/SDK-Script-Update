@@ -1,6 +1,11 @@
 #!/usr/bin/python3
 # Purpose: DMZ-Svr ADMIN Menu
-# Version: 0.2
+# Version: 0.3
+######################################################################################
+# ChangeLog:
+# 0.1: Initial Release
+# 0.2: 24Mar20: Public Release
+# 0.3: 6Apr20: Added continuousRun of traffic generation scripts
 ######################################################################################
 
 ################
@@ -20,9 +25,14 @@ def main():
 		print("|| Juniper SRX Demo Kit: -ADMIN- DMZ-SVR Menu                        ||")
 		print("=======================================================================")
 		print("1) Update Scripts from GitHub")
+		print("2) START Continuously traffic (SCREENS,IDP)")
+		print("3) STOP Continuous traffic ")
 		print("\nq) Quit the menu")
 		print("=======================================================================")
-		choice = input("\nPlease select a menu item: ")
+		try:
+			choice = input("\nPlease select a menu item: ")
+		except EOFError:
+			pass
 
 		if choice == "1":
 			system("/usr/bin/clear")
@@ -35,13 +45,26 @@ def main():
 			system("/tmp/SDK-Script-Update/update-scripts.sh")
 			print("- Cleaning up destination directory...")
 			system("sudo rm -rf /tmp/SDK-Script-Update")
-			input("--Press Any Key to return to the menu--")
+			sleep(5)
+			main()
+		elif choice == "2":
+			system("/usr/bin/clear")
+			print("... STARTING Continuous traffic...")
+			sleep(2)
+			system("/usr/local/bin/continuousRun.sh start")
+			main()
+		elif choice == "3":
+			system("/usr/bin/clear")
+			print("... STOPPING Continuous traffic...")
+			sleep(2)
+			system("/usr/local/bin/continuousRun.sh stop")
 			main()
 		elif choice == "q":
 			print("Exiting...")
 			exit()
 		else:
 			print("Invalid option...")
+			print (choice)
 			sleep(2)
 			system("/usr/bin/clear")
 			main()

@@ -1,6 +1,11 @@
 #!/usr/bin/python3
 # Purpose: Lubuntu ADMIN Menu
-# Version: 0.2
+# Version: 0.3
+######################################################################################
+# ChangeLog:
+# 0.1: Initial Release
+# 0.2: 24Mar20: Public Release
+# 0.3: 6Apr20: Added continuousRun of traffic generation scripts
 ######################################################################################
 
 ################
@@ -21,9 +26,14 @@ def main():
         print("=======================================================================")
         print("1) Update Scripts from GitHub")
         print("2) Run Troubleshooter Script")
+        print("3) START Continuous traffic (EWF, bad exts, virus)")
+        print("4) STOP Continuous traffic ")
         print("\nq) Quit the menu")
         print("=======================================================================")
-        choice = input("\nPlease select a menu item: ")
+        try:
+            choice = input("\nPlease select a menu item: ")
+        except EOFError:
+            pass
 
         if choice == "1":
             system("/usr/bin/clear")
@@ -44,6 +54,18 @@ def main():
             sleep(3)
             system("/home/juniper/Scripts/Troubleshooter/run_Troubleshooter.py")
             input("... Press Any Key to Continue ...")
+            main()
+        elif choice == "3":
+            system("/usr/bin/clear")
+            print("...STARTING Continous Traffic...")
+            sleep(3)
+            system("/usr/local/bin/continuousRun.sh start")
+            main()
+        elif choice == "4":
+            system("/usr/bin/clear")
+            print("...STOPPING Continous Traffic...")
+            sleep(3)
+            system("/usr/local/bin/continuousRun.sh stop")
             main()
         elif choice == "q":
             print("Exiting...")

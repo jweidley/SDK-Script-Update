@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 # Purpose: Open the web browser and tabs with the URLs below to demo UTM local web filtering.
-# Version: 0.2
+# Version: 0.1
 #########################################################################################
 
 ################

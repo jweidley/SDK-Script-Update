@@ -1,6 +1,11 @@
 #!/usr/bin/python3
-# Purpose: Continuously download files with restricted extensions from dmz-svr
-# Verion: 0.2
+# Purpose: Download files with restricted extensions from dmz-svr for 5 minutes
+# Verion: 0.3
+##########################################################################################
+# ChangeLog:
+# 0.1: initial release
+# 0.2: added 5 minute stop timer
+# 0.3: 4Apr20: Added optional --continuous option
 ##########################################################################################
 
 ################
@@ -9,6 +14,7 @@
 from time import time,sleep
 from random import choice
 from os import system
+import argparse
 
 ################
 # Variables
@@ -26,18 +32,39 @@ sleepTimes = [ 1, 2, 5, 10, 12, 15]
 ################
 # Main
 ################
-print("=================================================================")
-print("  Content Filter Test Script")
-print("=================================================================")
-while time() < endTime:
-	genURL = wget + choice(urls) + choice(files)
-	print("==============================================")
-	print(" URL: " + genURL)
-	print("==============================================")
-	system(genURL)
-	sleepfor = choice(sleepTimes)
-	print("Sleeping for " + str(sleepfor) + " seconds...")
-	sleep(sleepfor)
-	print
+parser = argparse.ArgumentParser(description='Run a download of bad extensions for the SRX to block')
+parser.add_argument("--continuous", action='store_true', help="Run script continuously")
+args = parser.parse_args()
+
+if args.continuous:
+    print("Continuous Enabled")
+    print("=================================================================")
+    print("  Content Filter Test Script --continuous")
+    print("=================================================================")
+    while args.continuous:
+        site = choice(urls)
+        file = choice(files)
+        genURL = wget + site + file
+        print(" - URL: " + site + file)
+        system(genURL)
+        sleepfor = choice(sleepTimes)
+        print("    Sleeping for " + str(sleepfor) + " seconds...")
+        sleep(sleepfor)
+        print
+else:
+    print("Continuous NOT Enabled")
+    print("=================================================================")
+    print("  Content Filter Test Script")
+    print("=================================================================")
+    while time() < endTime:
+        site = choice(urls)
+        file = choice(files)
+        genURL = wget + site + file
+        print(" - URL: " + site + file)
+        system(genURL)
+        sleepfor = choice(sleepTimes)
+        print("    Sleeping for " + str(sleepfor) + " seconds...")
+        sleep(sleepfor)
+        print
 
 ## End of Script ##

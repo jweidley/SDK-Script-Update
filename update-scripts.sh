@@ -1,6 +1,11 @@
 #!/bin/bash
 # Purpose: Update SDK scripts
-# Version: 0.2
+# Version: 0.3
+#############################################################
+# ChangeLog:
+# 0.1: Initial Release
+# 0.2: 24Mar20: Public Release
+# 0.3: 13Apr20: Added version tracking (.sdk-script-version)
 #############################################################
 
 ####################
@@ -69,6 +74,7 @@ fi
 # Copy new scripts to SCRIPT_DIR
 echo "- Copying new scripts to $BASE_DIR"
 sudo cp ${SCRIPT_DIR}/bin/* $BASE_DIR
+sudo cp ${SCRIPT_DIR}/.sdk-script-version $BASE_DIR
 
 # Copy new Lubuntu scripts
 if [[ $HOSTNAME == "lubuntu-wks" ]]; then
