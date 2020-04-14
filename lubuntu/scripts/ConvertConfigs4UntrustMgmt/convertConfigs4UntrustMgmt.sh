@@ -9,7 +9,7 @@
 # 3. Edit the untrustIP & gateway variables to suit your environment and save
 # 4. Run the script by typing '/bin/csh ./convertConfigs4UntrustMgmt.sh'
 #
-# ! The .txt files will be modified by the script and the original configs 
+# ! The .conf files will be modified by the script and the original configs 
 #   are saved with a .orig extension.
 ############################################################################
 
@@ -30,7 +30,7 @@ echo "=========================================================="
 echo " SDK: Converting Demo Configs for Untrust Mgmt"
 echo "=========================================================="
 
-foreach file (`ls *SDK*.txt`)
+foreach file (`ls *SDK*.conf`)
 	echo "Converting $file ..."
 
 	# Substitute fxp0 lines with ge-0/0/0
