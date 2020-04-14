@@ -31,17 +31,19 @@ if [[ $HOSTNAME == "SDK-dmz-svr" ]]; then
 		SCRIPT_DIR="/tmp/SDK-Script-Update/dmz-svr"
 	# Default to the current directory
 	else
-        	PWD=`/bin/pwd`
+        PWD=`/bin/pwd`
 		VERSION="${PWD}/.sdk-script-version"
 		SCRIPT_DIR="${PWD}/dmz-svr"
 	fi
 elif [[ $HOSTNAME == "lubuntu-wks" ]]; then
 	# Check for /tmp for admin-menu
 	if [ -d /tmp/SDK-Script-Update ]; then
+		VERSION="/tmp/SDK-Script-Update/.sdk-script-version"
 		SCRIPT_DIR="/tmp/SDK-Script-Update/lubuntu"
 	# Default to the current directory
 	else
-        	PWD=`/bin/pwd`
+        PWD=`/bin/pwd`
+		VERSION="${PWD}/.sdk-script-version"
 		SCRIPT_DIR="${PWD}/lubuntu"
 	fi
 else
