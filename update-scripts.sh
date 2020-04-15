@@ -20,33 +20,6 @@ BACKUP_DIR="/usr/local/bin/SCRIPT-BACKUP"
 # Functions
 ####################
 performUpgrade () {
-    # Find hostname to determine which scripts to update.
-    if [[ $HOSTNAME == "SDK-dmz-svr" ]]; then
-        # Check for /tmp for admin-menu
-        if [ -d /tmp/SDK-Script-Update ]; then
-    		VERSION="/tmp/SDK-Script-Update/.sdk-script-version"
-    		SCRIPT_DIR="/tmp/SDK-Script-Update/dmz-svr"
-    	# Default to the current directory
-    	else
-            PWD=`/bin/pwd`
-    		VERSION="${PWD}/.sdk-script-version"
-    		SCRIPT_DIR="${PWD}/dmz-svr"
-	   	fi
-    elif [[ $HOSTNAME == "lubuntu-wks" ]]; then
-    	# Check for /tmp for admin-menu
-    	if [ -d /tmp/SDK-Script-Update ]; then
-    		VERSION="/tmp/SDK-Script-Update/.sdk-script-version"
-    		SCRIPT_DIR="/tmp/SDK-Script-Update/lubuntu"
-    	# Default to the current directory
-    	else
-            PWD=`/bin/pwd`
-    		VERSION="${PWD}/.sdk-script-version"
-    		SCRIPT_DIR="${PWD}/lubuntu"
-    	fi
-    else
-    	echo "!! ERROR !! - No valid server type found."
-    	exit
-    fi
     echo "- Setting script source directory to $SCRIPT_DIR"
 
     # Check for other script backups and remove them
@@ -117,9 +90,39 @@ echo "========================================================"
 echo " SDK Script Update"
 echo "========================================================"
 
+# Find hostname to determine which scripts to update.
+if [[ $HOSTNAME == "SDK-dmz-svr" ]]; then
+    # Check for /tmp for admin-menu
+    if [ -d /tmp/SDK-Script-Update ]; then
+        VERSION="/tmp/SDK-Script-Update/.sdk-script-version"
+    	SCRIPT_DIR="/tmp/SDK-Script-Update/dmz-svr"
+    # Default to the current directory for manual
+    else
+        PWD=`/bin/pwd`
+    	VERSION="${PWD}/.sdk-script-version"
+    	SCRIPT_DIR="${PWD}/dmz-svr"
+   	fi
+elif [[ $HOSTNAME == "lubuntu-wks" ]]; then
+    # Check for /tmp for admin-menu
+   	if [ -d /tmp/SDK-Script-Update ]; then
+   		VERSION="/tmp/SDK-Script-Update/.sdk-script-version"
+   		SCRIPT_DIR="/tmp/SDK-Script-Update/lubuntu"
+   	# Default to the current directory for manual
+   	else
+        PWD=`/bin/pwd`
+        VERSION="${PWD}/.sdk-script-version"
+    	SCRIPT_DIR="${PWD}/lubuntu"
+    fi
+else
+    echo "!! ERROR !! - No valid server type found."
+   	exit
+fi
+
 # Version Check
+newVer=`cat ${VERSION} | grep Version | awk '{print $3}' | sed 's/v//'`
 echo "- Checking script versions..."
-newVer=`cat ./.sdk-script-version | grep Version | awk '{print $3}' | sed 's/v//'`
+
+# Condition for VMs with script update feature enabled
 if [ -f /usr/local/bin/.sdk-script-version ]; then
     currentVer=`cat /usr/local/bin/.sdk-script-version | grep Version | awk '{print $3}' | sed 's/v//'`
 
@@ -131,7 +134,7 @@ if [ -f /usr/local/bin/.sdk-script-version ]; then
         performUpgrade
         
     fi
-# Condition to catch old VMs without any script updates
+# Condition to catch old VMs prior to script update feature
 else
     echo "  + Upgrade Required: Current version: NA, New Version: ${newVer}"   
     performUpgrade
