@@ -1,7 +1,11 @@
 #!/bin/bash
 # Purpose: Run continuous scans
-# Version: 0.1
+# Version: 0.2
 # Author: John Weidley
+##################################################################################
+# ChangeLog:
+# 0.1: Initial Release
+# 0.2: 14Apr20: Progress bar moved to function for flexibility
 ##################################################################################
 
 ######################
@@ -13,12 +17,44 @@ IPS_SCAN="/usr/local/bin/nikto-scan.py --continuous"
 PS_OUTPUT=`ps -ef | egrep '\-\-continuous'`
 
 ######################
+# Functions
+######################
+progressBar () {
+	clear
+	echo "######################################################"
+	echo " Continuous Traffic"
+	echo "  - SCREENS"
+	echo "  - IDP"
+	echo " (press ctrl+c to return to menu)"
+	echo "######################################################"
+	echo " "
+	while true
+	do
+		echo -ne 'In Progress:[                                      ]\r'
+		sleep .5
+		echo -ne 'In Progress:[===                                   ]\r'
+		sleep .5
+		echo -ne 'In Progress:[========                              ]\r'
+		sleep .5
+		echo -ne 'In Progress:[=============                         ]\r'
+		sleep .5
+		echo -ne 'In Progress:[====================                  ]\r'
+		sleep .5
+		echo -ne 'In Progress:[=============================         ]\r'
+		sleep .5
+		echo -ne 'In Progress:[======================================]\r'
+		sleep .5
+	done
+}
+
+
+######################
 # Main
 ######################
 # Main Banner
-echo "#########################################################################"
+echo "######################################################"
 echo " Continuous Traffic:"
-echo "#########################################################################"
+echo "######################################################"
 
 # Check command line arguments
 if [ $# -ne 1 ];then
@@ -31,47 +67,18 @@ fi
 case $1 in
 	start) 
 		if [[ $PS_OUTPUT ]]; then
-			echo " "
-			echo "!!!!...Continuous Scan Already in Progress....no action"
-			echo " "
-			sleep 5
-			exit
+			progressBar
 		else
-			# Start Progress bar
 			$PYTHON $SCREEN_SCAN 1> /dev/null 2>&1 &
 			$PYTHON $IPS_SCAN 1> /dev/null 2>&1 &
-			clear
-			echo "######################################################"
-			echo " Continuous Traffic"
-			echo "  - SCREENS"
-			echo "  - IDP"
-			echo " (press ctrl+c to return to menu)"
-			echo "######################################################"
-			echo " "
 
-			# Start process loop
-			while true
-			do
-				echo -ne 'In Progress:[                                      ]\r'
-				sleep .5
-				echo -ne 'In Progress:[===                                   ]\r'
-				sleep .5
-				echo -ne 'In Progress:[========                              ]\r'
-				sleep .5
-				echo -ne 'In Progress:[=============                         ]\r'
-				sleep .5
-				echo -ne 'In Progress:[====================                  ]\r'
-				sleep .5
-				echo -ne 'In Progress:[=============================         ]\r'
-				sleep .5
-				echo -ne 'In Progress:[======================================]\r'
-				sleep .5
-			done
+			# Start process bar
+			progressBar
 		fi
 		;;
 
 	stop) 	
-		echo "- Killing continuous scans...."
+		echo "- Killing processes...."
 		echo " "
 		sudo kill -9 `ps -ef | egrep '\-\-continuous' | egrep -v egrep | awk '{print $2}'`
 		sleep 5
