@@ -1,6 +1,10 @@
 #!/usr/bin/python3
 # Purpose: Workstation Menu
-# Version: 0.4
+# Version: 0.5
+######################################################################################
+# ChangeLog:
+# 0.4: Initial Public Release
+# 0.5: 16Apr20: Added AppTrack & organized menu
 ######################################################################################
 
 ################
@@ -19,63 +23,62 @@ def main():
 		print("=======================================================================")
 		print("|| Juniper SRX Demo Kit: Lubuntu Menu                                ||")
 		print("=======================================================================")
-		print("1) WebFilter Demo: Launch browser with blocked sites tabs")
-		print("2) WebFilter Demo: Start permitted traffic generator ")
-		print("3) AntiVirus Demo: Download Test Viri ")
-		print("4) Content Filter Demo: Download Files with Blocked Extensions ")
-		print("5) Content Filter Demo: Launch browser with Blocked Extension sites ")
-		print("6) IDP Packetlog Demo: Start PCAP Receiver ")
-		print("7) UserFW Demo: Rerun login script to populate vSRX auth-table ")
-		print("8) LocalWebFilter Demo: Launch browser with blocked sites tabs ")
+		print("1) AppTrack: Generate Application Traffic")
+		print("2) EnhancedWebFilter: Start Traffic Generator & Launch Browser")
+		print("3) AntiVirus: Download Test Viri ")
+		print("4) Content Filter: Download Files & Launch Browser ")
+		print("5) IDP Packetlog: Start PCAP Receiver ")
+		print("6) UserFW: Rerun login script to populate vSRX auth-table ")
+		print("7) LocalWebFilter: Start Traffic Generator & Launch browser")
 		print("\nq) Quit the menu")
 		print("=======================================================================")
 		choice = input("\nPlease select a menu item: ")
 
 		if choice == "1":
 			system("/usr/bin/clear")
-			print("....Opening web browser...please wait a few seconds...")
+			print("....Starting traffic generator...please wait a few seconds...")
 			sleep(3)
-			system("/usr/local/bin/open-webfilter-sites.py 2>/dev/null")
+			system("/usr/bin/lxterminal --command=\"/usr/local/bin/apptrack-download.py\" 2>/dev/null")
 			main()
-		if choice == "2":
+		elif choice == "2":
 			system("/usr/bin/clear")
 			print("....Starting traffic generator...please wait a few seconds...")
 			sleep(3)
 			system("/usr/bin/lxterminal --command=\"/usr/local/bin/webTrafficGen.py\" 2>/dev/null")
+			sleep(3)
+			system("/usr/local/bin/open-webfilter-sites.py 2>/dev/null")
 			main()
-		if choice == "3":
+		elif choice == "3":
 			system("/usr/bin/clear")
 			print("....Starting Virus Downloader...please wait a few seconds...")
 			sleep(3)
 			system("/usr/bin/lxterminal --geometry=90x20 --command=\"/usr/local/bin/virus-download.py\" 2>/dev/null")
 			main()
-		if choice == "4":
+		elif choice == "4":
 			system("/usr/bin/clear")
 			print("....Starting to download files with restricted extensions...please wait a few seconds...")
 			sleep(3)
 			system("/usr/bin/lxterminal --geometry=90x20 --command=\"/usr/local/bin/bad-extension-download.py\" 2>/dev/null")
-			main()
-		if choice == "5":
-			system("/usr/bin/clear")
-			print("....Opening web browser...please wait a few seconds...")
 			sleep(3)
 			system("/usr/local/bin/open-contentfilter-sites.py 2>/dev/null")
 			main()
-		if choice == "6":
+		elif choice == "5":
 			system("/usr/bin/clear")
 			print("....Starting PCAP Receiver for IDP Capture...please wait a few seconds...")
 			sleep(3)
 			system("/usr/bin/lxterminal --geometry=90x20 --command=\"/usr/local/bin/srx_pcap_receiver.py -o /tmp/Juniper_IDP_PCAP_Storage -vv\" 2>/dev/null")
 			main()
-		if choice == "7":
+		elif choice == "6":
 			system("/usr/bin/clear")
 			print("....Populating auth-table on vSRX...please wait a few seconds...")
 			sleep(3)
 			system("/usr/local/bin/update-local-userfw.py")
 			main()
-		if choice == "8":
+		elif choice == "7":
 			system("/usr/bin/clear")
-			print("....Opening web browser...please wait a few seconds...")
+			print("....Starting to Generate Traffic...please wait a few seconds...")
+			sleep(3)
+			system("/usr/bin/lxterminal --geometry=90x20 --command=\"/usr/local/bin/webfilter-download.py\" 2>/dev/null")
 			sleep(3)
 			system("/usr/local/bin/open-localwebfilter-sites.py 2>/dev/null")
 			main()
