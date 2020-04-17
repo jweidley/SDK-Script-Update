@@ -1,11 +1,12 @@
 #!/usr/bin/python3
 # Purpose: Lubuntu ADMIN Menu
-# Version: 0.3
+# Version: 0.4
 ######################################################################################
 # ChangeLog:
 # 0.1: Initial Release
 # 0.2: 24Mar20: Public Release
 # 0.3: 6Apr20: Added continuousRun of traffic generation scripts
+# 0.4: 17Apr20: Changed continuousRun menu option
 ######################################################################################
 
 ################
@@ -26,7 +27,7 @@ def main():
         print("=======================================================================")
         print("1) Update Scripts from GitHub")
         print("2) Run Troubleshooter Script")
-        print("3) START Continuous traffic (EWF, bad exts, virus)")
+        print("3) START Continuous traffic (AppTrack,EWF,AV,CF)")
         print("4) STOP Continuous traffic ")
         print("\nq) Quit the menu")
         print("=======================================================================")

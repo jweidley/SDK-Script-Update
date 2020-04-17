@@ -1,10 +1,11 @@
 #!/bin/bash
 # Purpose: Run continuous downloads/scans
-# Version: 0.2
+# Version: 0.3
 # Author: John Weidley
 #####################################################################################################
 # 0.1: 6Apr20: Intial Release
 # 0.2: 9Apr20: Launch in separate windows
+# 0.3: 17Apr20: Added AppTrack generation
 #####################################################################################################
 
 ######################
@@ -54,6 +55,8 @@ case $1 in
 			/usr/bin/lxterminal --geometry=75x12 --command="/usr/local/bin/webTrafficGen.py" 2>/dev/null &
 			echo "- Running Blocked Web Traffic..."
 			/usr/bin/lxterminal --geometry=75x12 --command="/usr/local/bin/webfilter-download.py --continuous" 2>/dev/null &
+			echo "- Running AppTrack Traffic..."
+			/usr/bin/lxterminal --geometry=75x12 --command="/usr/local/bin/apptrack-download.py --continuous" 2>/dev/null &
 			echo " "
 			echo "-- Finished --"
 			echo " "
