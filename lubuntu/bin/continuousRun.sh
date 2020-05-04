@@ -56,7 +56,7 @@ case $1 in
 			echo "- Running Blocked Web Traffic..."
 			/usr/bin/lxterminal --geometry=75x12 --command="/usr/local/bin/webfilter-download.py --continuous" 2>/dev/null &
 			echo "- Running AppTrack Traffic..."
-			/usr/bin/lxterminal --geometry=75x12 --command="/usr/local/bin/apptrack-download.py --continuous" 2>/dev/null &
+			/usr/bin/lxterminal --geometry=75x12 --command="/usr/local/bin/apptrack-generate.py --continuous" 2>/dev/null &
 			echo " "
 			echo "-- Finished --"
 			echo " "
