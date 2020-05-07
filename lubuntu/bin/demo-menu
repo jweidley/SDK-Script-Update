@@ -38,7 +38,7 @@ def main():
 			system("/usr/bin/clear")
 			print("....Starting traffic generator...please wait a few seconds...")
 			sleep(3)
-			system("/usr/bin/lxterminal --command=\"/usr/local/bin/apptrack-download.py\" 2>/dev/null")
+			system("/usr/bin/lxterminal --command=\"/usr/local/bin/apptrack-generate.py\" 2>/dev/null")
 			main()
 		elif choice == "2":
 			system("/usr/bin/clear")
