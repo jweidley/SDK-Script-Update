@@ -1,11 +1,12 @@
 #!/usr/bin/python3
-# Purpose: Download files with restricted extensions from dmz-svr for 5 minutes
-# Verion: 0.3
+# Purpose: Download files with restricted extensions
+# Verion: 0.4
 ##########################################################################################
 # ChangeLog:
 # 0.1: initial release
 # 0.2: added 5 minute stop timer
 # 0.3: 4Apr20: Added optional --continuous option
+# 0.4: 22May20: Variabilize time option
 ##########################################################################################
 
 ################
@@ -19,7 +20,8 @@ import argparse
 ################
 # Variables
 ################
-endTime = time() + 60 * 5
+duration = 15
+endTime = time() + 60 * duration
 wget = "/usr/bin/wget -q -O /dev/null "
 urls = [
 	"http://192.168.200.20/",
@@ -37,7 +39,6 @@ parser.add_argument("--continuous", action='store_true', help="Run script contin
 args = parser.parse_args()
 
 if args.continuous:
-    print("Continuous Enabled")
     print("=================================================================")
     print("  Content Filter Test Script --continuous")
     print("=================================================================")
@@ -52,9 +53,8 @@ if args.continuous:
         sleep(sleepfor)
         print
 else:
-    print("Continuous NOT Enabled")
     print("=================================================================")
-    print("  Content Filter Test Script")
+    print("  Content Filter Test Script: " + str(duration) + " minutes")
     print("=================================================================")
     while time() < endTime:
         site = choice(urls)

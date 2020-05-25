@@ -12,85 +12,108 @@
 ################
 from os import system
 from time import sleep
+from pathlib import Path
+
+################
+# Variables
+################
+#### Add condition to detect & set terminal & options (lxterminal or gnome-terminal)
+gnome_terminal = Path("/usr/bin/gnome-terminal")
+APPTRACK_CMD = "/usr/local/bin/apptrack-generate.py"
+WEBTRAFFIC_CMD = "/usr/local/bin/webTrafficGen.py"
+WEBFILTER_CMD = "/usr/local/bin/webfilter-download.py"
+VIRUSDOWNLOAD_CMD = "/usr/local/bin/virus-download.py"
+CONTENTFILTER_CMD = "/usr/local/bin/bad-extension-download.py"
+PCAP_RCVR_CMD = "/usr/local/bin/srx_pcap_receiver.py -o /tmp/Juniper_IDP_PCAP_Storage -vv"
+
 
 ################
 # Functions
 ################
 def main():
-	choice = '0'
-	while choice == '0':
-		system("/usr/bin/clear")
-		print("=======================================================================")
-		print("|| Juniper SRX Demo Kit: Lubuntu Menu                                ||")
-		print("=======================================================================")
-		print("1) AppTrack: Generate Application Traffic")
-		print("2) EnhancedWebFilter: Start Traffic Generator & Launch Browser")
-		print("3) AntiVirus: Download Test Viri ")
-		print("4) Content Filter: Download Files & Launch Browser ")
-		print("5) IDP Packetlog: Start PCAP Receiver ")
-		print("6) UserFW: Rerun login script to populate vSRX auth-table ")
-		print("7) LocalWebFilter: Start Traffic Generator & Launch browser")
-		print("\nq) Quit the menu")
-		print("=======================================================================")
-		choice = input("\nPlease select a menu item: ")
+    choice = '0'
+    while choice == '0':
+        system("/usr/bin/clear")
+        print("=======================================================================")
+        print("|| Juniper SRX Demo Kit: Lubuntu Menu                                ||")
+        print("=======================================================================")
+        print("1) AppTrack: Generate Application Traffic")
+        print("2) EnhancedWebFilter: Start Traffic Generator & Launch Browser")
+        print("3) AntiVirus: Download Test Viri ")
+        print("4) Content Filter: Download Files & Launch Browser ")
+        print("5) IDP Packetlog: Start PCAP Receiver ")
+        print("6) UserFW: Rerun login script to populate vSRX auth-table ")
+        print("7) LocalWebFilter: Start Traffic Generator & Launch browser")
+        print("\nq) Quit the menu")
+        print("=======================================================================")
+        choice = input("\nPlease select a menu item: ")
 
-		if choice == "1":
-			system("/usr/bin/clear")
-			print("....Starting traffic generator...please wait a few seconds...")
-			sleep(3)
-			system("/usr/bin/lxterminal --command=\"/usr/local/bin/apptrack-generate.py\" 2>/dev/null")
-			main()
-		elif choice == "2":
-			system("/usr/bin/clear")
-			print("....Starting traffic generator...please wait a few seconds...")
-			sleep(3)
-			system("/usr/bin/lxterminal --command=\"/usr/local/bin/webTrafficGen.py\" 2>/dev/null")
-			sleep(3)
-			system("/usr/local/bin/open-webfilter-sites.py 2>/dev/null")
-			main()
-		elif choice == "3":
-			system("/usr/bin/clear")
-			print("....Starting Virus Downloader...please wait a few seconds...")
-			sleep(3)
-			system("/usr/bin/lxterminal --geometry=90x20 --command=\"/usr/local/bin/virus-download.py\" 2>/dev/null")
-			main()
-		elif choice == "4":
-			system("/usr/bin/clear")
-			print("....Starting to download files with restricted extensions...please wait a few seconds...")
-			sleep(3)
-			system("/usr/bin/lxterminal --geometry=90x20 --command=\"/usr/local/bin/bad-extension-download.py\" 2>/dev/null")
-			sleep(3)
-			system("/usr/local/bin/open-contentfilter-sites.py 2>/dev/null")
-			main()
-		elif choice == "5":
-			system("/usr/bin/clear")
-			print("....Starting PCAP Receiver for IDP Capture...please wait a few seconds...")
-			sleep(3)
-			system("/usr/bin/lxterminal --geometry=90x20 --command=\"/usr/local/bin/srx_pcap_receiver.py -o /tmp/Juniper_IDP_PCAP_Storage -vv\" 2>/dev/null")
-			main()
-		elif choice == "6":
-			system("/usr/bin/clear")
-			print("....Populating auth-table on vSRX...please wait a few seconds...")
-			sleep(3)
-			system("/usr/local/bin/update-local-userfw.py")
-			main()
-		elif choice == "7":
-			system("/usr/bin/clear")
-			print("....Starting to Generate Traffic...please wait a few seconds...")
-			sleep(3)
-			system("/usr/bin/lxterminal --geometry=90x20 --command=\"/usr/local/bin/webfilter-download.py\" 2>/dev/null")
-			sleep(3)
-			system("/usr/local/bin/open-localwebfilter-sites.py 2>/dev/null")
-			main()
-		elif choice == "q":
-			print("Exiting...")
-			exit()
-		else:
-			print("Invalid option...")
-			sleep(3)
-			system("/usr/bin/clear")
-			main()
+        if choice == "1":
+            system("/usr/bin/clear")
+            print("....Starting traffic generator...please wait a few seconds...")
+            sleep(3)
+            system("/usr/bin/lxterminal --command=\"" + APPTRACK_CMD + "\" 2>/dev/null")
+            main()
+        elif choice == "2":
+            system("/usr/bin/clear")
+            print("....Starting traffic generator...please wait a few seconds...")
+            sleep(3)
+            if gnome_terminal.exists():
+                system("/usr/bin/gnome-terminal --tab -t \"WebTraffic\" --command \"" + WEBTRAFFIC_CMD + "\" --tab -t \"EWF-Sites\" --command \"" + WEBFILTER_CMD + "\" >/dev/null")
+                sleep(3)
+                system("/usr/local/bin/open-webfilter-sites.py 2>/dev/null")
+                main()
+            else:
+                system("/usr/bin/lxterminal --command=\"" + WEBTRAFFIC_CMD + "\" 2>/dev/null")
+                sleep(3)
+                system("/usr/local/bin/open-webfilter-sites.py 2>/dev/null")
+                main()
+        elif choice == "3":
+            system("/usr/bin/clear")
+            print("....Starting Virus Downloader...please wait a few seconds...")
+            sleep(3)
+            system("/usr/bin/lxterminal --geometry=90x20 --command=\"" + VIRUSDOWNLOAD_CMD + "\" 2>/dev/null")
+            main()
+        elif choice == "4":
+            system("/usr/bin/clear")
+            print("....Starting to download files with restricted extensions...please wait a few seconds...")
+            sleep(3)
+            system("/usr/bin/lxterminal --geometry=90x20 --command=\"" + CONTENTFILTER_CMD + "\" 2>/dev/null")
+            sleep(3)
+            system("/usr/local/bin/open-contentfilter-sites.py 2>/dev/null")
+            main()
+        elif choice == "5":
+            system("/usr/bin/clear")
+            print("....Starting PCAP Receiver for IDP Capture...please wait a few seconds...")
+            sleep(3)
+            system("/usr/bin/lxterminal --geometry=90x20 --command=\"" + PCAP_RCVR_CMD + "\" 2>/dev/null")
+            main()
+        elif choice == "6":
+            system("/usr/bin/clear")
+            print("....Populating auth-table on vSRX...please wait a few seconds...")
+            sleep(3)
+            system("/usr/local/bin/update-local-userfw.py")
+            main()
+        elif choice == "7":
+            system("/usr/bin/clear")
+            print("....Starting to Generate Traffic...please wait a few seconds...")
+            sleep(3)
+            system("/usr/bin/lxterminal --geometry=90x20 --command=\"" + WEBFILTER_CMD + "\" 2>/dev/null")
+            sleep(3)
+            system("/usr/local/bin/open-localwebfilter-sites.py 2>/dev/null")
+            main()
+        elif choice == "q":
+            print("Exiting...")
+            exit()
+        else:
+            print("Invalid option...")
+            sleep(3)
+            system("/usr/bin/clear")
+            main()
 
+################
+# Main
+################
 main()
 
 ## End of Script ##

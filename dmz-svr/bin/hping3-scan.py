@@ -1,12 +1,13 @@
 #!/usr/bin/python3
 # Purpose: Use Hping3 to generate traffic that will be blocked by vSRX screens.
-# Version: 0.3
+# Version: 0.4
 # Author: John Weidley
 ######################################################################################
 # ChangeLog:
 # 0.1: Initial Release
 # 0.2: 22Mar20: Fixed the -I interface options to be accurate.
 # 0.3: 4Apr20: Add optional --continuous option
+# 0.4: 18May20: Variabilized time option & increased to 15.
 ######################################################################################
 
 ################
@@ -20,7 +21,8 @@ import argparse
 ################
 # Variables
 ################
-endTime = time() + 60 * 5
+duration = 15
+endTime = time() + 60 * duration
 counts = ["5", "7", "10", "12", "15", "20", "25"]
 attackCommands = [
         "sudo hping3 -q --fast --icmp -d 1000 -I ens34.200 --rand-dest 192.168.100.x -c ",
@@ -47,7 +49,7 @@ if args.continuous:
 else:
     while time() < endTime:
         print("############################################################################################")
-        print(" Running Hping3 Scan for 5 minutes")
+        print(" Running SCREENS Scan for " + str(duration) + " minutes")
         print("############################################################################################")
         genCommand = choice(attackCommands) + choice(counts)
         print("Using attack command: " + genCommand)

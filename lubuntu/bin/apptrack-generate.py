@@ -1,9 +1,10 @@
 #!/usr/bin/python3
 # Purpose: Generate traffic to sites to generate traffic for AppTrack
-# Verion: 0.1
+# Verion: 0.2
 ##########################################################################################
 # ChangeLog:
 # 0.1: 15Apr20: Initial release
+# 0.2: 22May20: Variabilize time option
 ##########################################################################################
 
 ################
@@ -17,7 +18,8 @@ import argparse
 ################
 # Variables
 ################
-endTime = time() + 60 * 5
+duration = 15
+endTime = time() + 60 * duration
 wget = "/usr/bin/wget -q -O /dev/null --no-check-certificate "
 urls = [
 	"youtube.com",
@@ -47,7 +49,6 @@ parser.add_argument("--continuous", action='store_true', help="Run script contin
 args = parser.parse_args()
 
 if args.continuous:
-    print("Continuous Enabled")
     print("=================================================================")
     print("  AppTrack Traffic Generator --continuous")
     print("=================================================================")
@@ -61,9 +62,8 @@ if args.continuous:
         sleep(sleepfor)
         print
 else:
-    print("Continuous NOT Enabled")
     print("=================================================================")
-    print("  AppTrack Traffic Generator")
+    print("  AppTrack Traffic Generator: " + str(duration) + " minutes")
     print("=================================================================")
     while time() < endTime:
         site = choice(urls)

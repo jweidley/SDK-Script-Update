@@ -1,7 +1,10 @@
 #!/usr/bin/python3
 # Purpose: Basic troubleshooting script to verify inter-connectivity
-# Version: 0.2
+# Version: 0.3
 # Modified from: https://github.com/pklimai/pyez-network-testing
+########################################################################################
+# ChangeLog:
+# 0.3: 18May20: Added color to pass/fail
 ########################################################################################
 
 ##########################
@@ -20,6 +23,13 @@ from os import listdir
 ##########################
 # Variables
 ##########################
+class style:
+    BOLD = '\033[1m'
+    GREEN = '\033[92m'
+    YELLOW = '\033[93m'
+    RED = '\033[91m'
+    END = '\033[0m'
+
 Junos_HOSTS = {
     "vsrx": "192.168.100.1",
 }
@@ -47,9 +57,10 @@ for f in listdir(linux_script_dir):
 
 if __name__ == "__main__":
 
-    print("==========================================================================")
-    print(" SDK: Automated Troubleshooter")
-    print("==========================================================================")
+    print(style.BOLD + "==========================================================================" + style.END)
+    print(style.BOLD + " SDK: Automated Troubleshooter" + style.END)
+    print(style.YELLOW + "  -- Note: Ensure you have the BASE configuration loaded on the vSRX" + style.END)
+    print(style.BOLD + "==========================================================================" + style.END)
     tests_success = 0
     tests_fail = 0
 
@@ -65,10 +76,10 @@ if __name__ == "__main__":
                     print("\tRunning %s... " % name, end="")
                     test_result = locals()[name](cli)
                     if test_result:
-                        print("\tpass")
+                        print(style.GREEN + "\tpass" + style.END)
                         tests_success += 1
                     else:
-                        print("\t***FAIL***")
+                        print(style.RED + "\t***FAIL***" + style.END)
                         tests_fail += 1
 
         except Exception as err:
@@ -88,10 +99,10 @@ if __name__ == "__main__":
                         print("\tRunning %s... " % name, end="")
                         test_result = locals()[name](dev)
                         if test_result:
-                            print("\tpass")
+                            print(style.GREEN + "\tpass" + style.END)
                             tests_success += 1
                         else:
-                            print("\t***FAIL***")
+                            print(style.RED + "\t***FAIL***" + style.END)
                             tests_fail += 1
         except ConnectError as err:
             print("\tCannot connect to device: {0}".format(err))
@@ -107,6 +118,9 @@ if __name__ == "__main__":
     # Print Trailer Summary
     print("--------")
     print("Network test script finished. Successful tests: %s, failed tests: %s" % (tests_success, tests_fail))
-    print("All went OK." if tests_fail == 0 else "***WARNING***: There were failed tests!")
+    if tests_fail == 0:
+        print(style.GREEN + " All test Passed." + style.END)
+    else:
+        print(style.RED + "***WARNING***: There were failed tests!" + style.END)
 
 ## End of script ##

@@ -1,12 +1,14 @@
 #!/usr/bin/python3
 # Purpose: Lubuntu ADMIN Menu
-# Version: 0.4
+# Version: 0.6
 ######################################################################################
 # ChangeLog:
 # 0.1: Initial Release
 # 0.2: 24Mar20: Public Release
 # 0.3: 6Apr20: Added continuousRun of traffic generation scripts
 # 0.4: 17Apr20: Changed continuousRun menu option
+# 0.5: 22May20: Added color & warning to script update about BASE config
+# 0.6: 24May20: Script Update, added Internet check
 ######################################################################################
 
 ################
@@ -14,6 +16,14 @@
 ################
 from os import system
 from time import sleep
+import socket
+
+################
+# Variables
+################
+class style:
+    YELLOW = '\033[93m'
+    END = '\033[0m'
 
 ################
 # Functions
@@ -38,6 +48,21 @@ def main():
 
         if choice == "1":
             system("/usr/bin/clear")
+            print("==================================================================")
+            print(" Script Update:")
+            print(style.YELLOW + "  - Ensure the BASE config is loaded on the vSRX!" + style.END)
+            print("==================================================================")
+            sleep(2)
+            print("- Testing Internet Connectivity")
+            sleep(2)
+
+            try:
+                host = socket.gethostbyname("github.com")
+                print("  + PASSED!")
+            except:
+                print("  + FAILED! Please verify Network Connectivity.")
+                exit(1)
+
             print("- Cleaning up destination directory...")
             system("sudo rm -rf /tmp/SDK-Script-Update")
             print("- Downloading scripts from GitHub...\n")
