@@ -1,10 +1,11 @@
 #!/usr/bin/python3
 # Purpose: Generate traffic to sites to generate traffic for AppTrack
-# Verion: 0.2
+# Verion: 0.3
 ##########################################################################################
 # ChangeLog:
 # 0.1: 15Apr20: Initial release
 # 0.2: 22May20: Variabilize time option
+# 0.3: 4Jun20: Added amazon & fb/juniper twice for AppFW testing
 ##########################################################################################
 
 ################
@@ -24,7 +25,8 @@ wget = "/usr/bin/wget -q -O /dev/null --no-check-certificate "
 urls = [
 	"youtube.com",
 	"outlook.com",
-	"facebook.com",
+	"www.facebook.com/JuniperNetworks/",
+	"www.facebook.com/JuniperNetworks/",
 	"linkedin.com",
 	"yahoo.com",
 	"tumblr.com",
@@ -32,6 +34,7 @@ urls = [
 	"https://player.vimeo.com/video/252767901",
 	"cnn.com",
 	"cnet.com",
+	"amazon.com",
 	"amazon.com",
 	"reddit.com",
 	"espn.com",
