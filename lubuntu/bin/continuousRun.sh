@@ -49,7 +49,7 @@ case $1 in
 			echo "- Opening Traffic Generating Website"
 			/usr/bin/firefox --new-tab "https://trends.google.com/trends/hottrends/visualize?nrow=5&ncol=5" 2>/dev/null&
 			sleep 3
-			if [ -f /usr/bin/gnome-terminal1 ]; then
+			if [ -f /usr/bin/gnome-terminal ]; then
 			echo "- Starting Traffic Generators..."
 			gnome-terminal --tab -t "SwitchUser" --command "/usr/local/bin/userFW_switchUser.py --continuous" \
                 --tab -t "AppTrack" --command "/usr/local/bin/apptrack-generate.py --continuous" \
