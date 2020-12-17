@@ -5,7 +5,7 @@
 # ChangeLog:
 # 0.4: Initial Public Release
 # 0.5: 16Apr20: Added AppTrack & organized menu
-# 0.6: 9Dec20: Determine which terminal to use
+# 0.6: 9Dec20: Determine which terminal to use, fix gterm syntax
 ######################################################################################
 
 ################
@@ -40,7 +40,7 @@ PCAP_RCVR_CMD = "/usr/local/bin/srx_pcap_receiver.py -o /tmp/Juniper_IDP_PCAP_St
 def runTerm(cmd,AppName):
     #print("new function")
     if gnome_terminal.exists():
-        system("/usr/bin/gnome-terminal --geometry=90x20 --tab -t \"" + AppName + "\" --command \"" + cmd + "\" >/dev/null")
+        system("/usr/bin/gnome-terminal --geometry=90x20 --tab -t \"" + AppName + "\" -- " + cmd + " 2>/dev/null")
     elif lxterminal.exists():
         system("/usr/bin/lxterminal --geometry=90x20 --command=\"" + cmd + "\" 2>/dev/null")
     else:
@@ -79,9 +79,8 @@ def main():
             system("/usr/bin/clear")
             print("....Starting traffic generator...please wait a few seconds...")
             sleep(3)
-            main()
             if gnome_terminal.exists():
-                system("/usr/bin/gnome-terminal --tab -t \"WebTraffic\" --command \"" + WEBTRAFFIC_CMD + "\" --tab -t \"EWF-Sites\" --command \"" + WEBFILTER_CMD + "\" >/dev/null")
+                system("/usr/bin/gnome-terminal --tab -t \"WebTraffic\" --command \"" + WEBTRAFFIC_CMD + "\" --tab -t \"EWF-Sites\" --command \"" + WEBFILTER_CMD + "\" 2>/dev/null")
                 sleep(3)
                 system("/usr/local/bin/open-webfilter-sites.py 2>/dev/null")
                 main()
