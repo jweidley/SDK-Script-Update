@@ -103,7 +103,7 @@ if [[ $HOSTNAME == "SDK-dmz-svr" ]]; then
     	VERSION="${PWD}/.sdk-script-version"
     	SCRIPT_DIR="${PWD}/dmz-svr"
    	fi
-elif [[ $HOSTNAME == "lubuntu-wks" || $HOSTNAME == "lubuntu"]]; then
+elif [[ $HOSTNAME == "lubuntu-wks" || $HOSTNAME == "lubuntu" ]]; then
     # Check for /tmp for admin-menu
    	if [ -d /tmp/SDK-Script-Update ]; then
    		VERSION="/tmp/SDK-Script-Update/.sdk-script-version"
