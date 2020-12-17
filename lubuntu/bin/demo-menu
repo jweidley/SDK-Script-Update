@@ -1,10 +1,11 @@
 #!/usr/bin/python3
-# Purpose: Workstation Menu
-# Version: 0.5
+# Purpose: Workstation Demo Menu
+# Version: 0.6
 ######################################################################################
 # ChangeLog:
 # 0.4: Initial Public Release
 # 0.5: 16Apr20: Added AppTrack & organized menu
+# 0.6: 9Dec20: Determine which terminal to use
 ######################################################################################
 
 ################
@@ -17,8 +18,8 @@ from pathlib import Path
 ################
 # Variables
 ################
-#### Add condition to detect & set terminal & options (lxterminal or gnome-terminal)
 gnome_terminal = Path("/usr/bin/gnome-terminal")
+lxterminal = Path("/usr/bin/lxterminal")
 APPTRACK_CMD = "/usr/local/bin/apptrack-generate.py"
 WEBTRAFFIC_CMD = "/usr/local/bin/webTrafficGen.py"
 WEBFILTER_CMD = "/usr/local/bin/webfilter-download.py"
@@ -30,6 +31,26 @@ PCAP_RCVR_CMD = "/usr/local/bin/srx_pcap_receiver.py -o /tmp/Juniper_IDP_PCAP_St
 ################
 # Functions
 ################
+#-----------------------------------------------------------------------------------------
+# runTerm calls the correct terminal program based on whether gnome-terminal is installed
+# NOTES: 
+# - Dont care about qterminal because Lubuntu20 will have gterm installed
+# - fail if gterm or lxterm is not installed. Print message how to fix
+#-----------------------------------------------------------------------------------------
+def runTerm(cmd,AppName):
+    #print("new function")
+    if gnome_terminal.exists():
+        system("/usr/bin/gnome-terminal --geometry=90x20 --tab -t \"" + AppName + "\" --command \"" + cmd + "\" >/dev/null")
+    elif lxterminal.exists():
+        system("/usr/bin/lxterminal --geometry=90x20 --command=\"" + cmd + "\" 2>/dev/null")
+    else:
+        print("!!! Couldnt determine the correct terminal to use, exiting !!!")
+        print("!!! Ensure gnome-terminal is installed (sudo apt install gnome-terminal) !!!")
+        exit()
+
+#-----------------------------------------------------------------------------------------
+# main:
+#-----------------------------------------------------------------------------------------
 def main():
     choice = '0'
     while choice == '0':
@@ -52,12 +73,13 @@ def main():
             system("/usr/bin/clear")
             print("....Starting traffic generator...please wait a few seconds...")
             sleep(3)
-            system("/usr/bin/lxterminal --command=\"" + APPTRACK_CMD + "\" 2>/dev/null")
+            runTerm(APPTRACK_CMD,"AppTrack")
             main()
         elif choice == "2":
             system("/usr/bin/clear")
             print("....Starting traffic generator...please wait a few seconds...")
             sleep(3)
+            main()
             if gnome_terminal.exists():
                 system("/usr/bin/gnome-terminal --tab -t \"WebTraffic\" --command \"" + WEBTRAFFIC_CMD + "\" --tab -t \"EWF-Sites\" --command \"" + WEBFILTER_CMD + "\" >/dev/null")
                 sleep(3)
@@ -72,13 +94,13 @@ def main():
             system("/usr/bin/clear")
             print("....Starting Virus Downloader...please wait a few seconds...")
             sleep(3)
-            system("/usr/bin/lxterminal --geometry=90x20 --command=\"" + VIRUSDOWNLOAD_CMD + "\" 2>/dev/null")
+            runTerm(VIRUSDOWNLOAD_CMD,"Virus-Downloads")
             main()
         elif choice == "4":
             system("/usr/bin/clear")
             print("....Starting to download files with restricted extensions...please wait a few seconds...")
             sleep(3)
-            system("/usr/bin/lxterminal --geometry=90x20 --command=\"" + CONTENTFILTER_CMD + "\" 2>/dev/null")
+            runTerm(CONTENTFILTER_CMD,"Content-Filter")
             sleep(3)
             system("/usr/local/bin/open-contentfilter-sites.py 2>/dev/null")
             main()
@@ -86,7 +108,7 @@ def main():
             system("/usr/bin/clear")
             print("....Starting PCAP Receiver for IDP Capture...please wait a few seconds...")
             sleep(3)
-            system("/usr/bin/lxterminal --geometry=90x20 --command=\"" + PCAP_RCVR_CMD + "\" 2>/dev/null")
+            runTerm(PCAP_RCVR_CMD,"PCAP-Receiver")
             main()
         elif choice == "6":
             system("/usr/bin/clear")
@@ -98,7 +120,7 @@ def main():
             system("/usr/bin/clear")
             print("....Starting to Generate Traffic...please wait a few seconds...")
             sleep(3)
-            system("/usr/bin/lxterminal --geometry=90x20 --command=\"" + WEBFILTER_CMD + "\" 2>/dev/null")
+            runTerm(WEBFILTER_CMD,"Web-Filter")
             sleep(3)
             system("/usr/local/bin/open-localwebfilter-sites.py 2>/dev/null")
             main()

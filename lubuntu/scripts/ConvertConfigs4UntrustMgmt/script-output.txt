@@ -1,20 +1,5 @@
 
 juniper@SDK-vSRX_BASE> start shell 
-% ls
-1-SDK-vsrx1-BaseConfig.conf              4-SDK-vsrx1-APPFW.conf.orig
-1-SDK-vsrx1-BaseConfig.conf.orig         5-SDK-vsrx1-EnhancedWebFilter.conf
-10-SDK-vsrx1-UserFW.conf                 5-SDK-vsrx1-EnhancedWebFilter.conf.orig
-10-SDK-vsrx1-UserFW.conf.orig            6-SDK-vsrx1-AntiVirus.conf
-11-SDK-vsrx1-Troubleshooting.conf        6-SDK-vsrx1-AntiVirus.conf.orig
-11-SDK-vsrx1-Troubleshooting.conf.orig   7-SDK-vsrx1-ContentFilter.conf
-12-SDK-vsrx1-LocalWebFilter.conf         7-SDK-vsrx1-ContentFilter.conf.orig
-12-SDK-vsrx1-LocalWebFilter.conf.orig    8-SDK-vsrx1-IDP.conf
-2-SDK-vsrx1-SCREENS.conf                 8-SDK-vsrx1-IDP.conf.orig
-2-SDK-vsrx1-SCREENS.conf.orig            9-SDK-vsrx1-IDP-Packetlog.conf
-3-SDK-vsrx1-APPTRACK.conf                9-SDK-vsrx1-IDP-Packetlog.conf.orig
-3-SDK-vsrx1-APPTRACK.conf.orig           convertConfigs4UntrustMgmt.sh
-4-SDK-vsrx1-APPFW.conf
-% 
 % /bin/csh ./convertConfigs4UntrustMgmt.sh
 ==========================================================
  SDK: Converting Demo Configs for Untrust Mgmt
@@ -33,4 +18,19 @@ Converting 8-SDK-vsrx1-IDP.conf ...
 Converting 9-SDK-vsrx1-IDP-Packetlog.conf ...
  
 --Finished--
+% 
+% ls
+1-SDK-vsrx1-BaseConfig.conf              4-SDK-vsrx1-APPFW.conf.orig
+1-SDK-vsrx1-BaseConfig.conf.orig         5-SDK-vsrx1-EnhancedWebFilter.conf
+10-SDK-vsrx1-UserFW.conf                 5-SDK-vsrx1-EnhancedWebFilter.conf.orig
+10-SDK-vsrx1-UserFW.conf.orig            6-SDK-vsrx1-AntiVirus.conf
+11-SDK-vsrx1-Troubleshooting.conf        6-SDK-vsrx1-AntiVirus.conf.orig
+11-SDK-vsrx1-Troubleshooting.conf.orig   7-SDK-vsrx1-ContentFilter.conf
+12-SDK-vsrx1-LocalWebFilter.conf         7-SDK-vsrx1-ContentFilter.conf.orig
+12-SDK-vsrx1-LocalWebFilter.conf.orig    8-SDK-vsrx1-IDP.conf
+2-SDK-vsrx1-SCREENS.conf                 8-SDK-vsrx1-IDP.conf.orig
+2-SDK-vsrx1-SCREENS.conf.orig            9-SDK-vsrx1-IDP-Packetlog.conf
+3-SDK-vsrx1-APPTRACK.conf                9-SDK-vsrx1-IDP-Packetlog.conf.orig
+3-SDK-vsrx1-APPTRACK.conf.orig           convertConfigs4UntrustMgmt.sh
+4-SDK-vsrx1-APPFW.conf
 % 
