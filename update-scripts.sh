@@ -1,12 +1,13 @@
 #!/bin/bash
 # Purpose: Update SDK scripts
-# Version: 0.4
+# Version: 0.5
 #############################################################
 # ChangeLog:
 # 0.1: Initial Release
 # 0.2: 24Mar20: Public Release
 # 0.3: 13Apr20: Added version tracking (.sdk-script-version)
 # 0.4: 14Apr20: Added logic to only upgrade if needed based on script version
+# 0.5: 17Dec20: Added condition for lubuntu-20
 #############################################################
 
 ####################
@@ -40,7 +41,7 @@ performUpgrade () {
     sudo cp ${BASE_DIR}/*.sh $BACKUP_DIR
 
     # Backup Lubuntu scripts
-    if [[ $HOSTNAME == "lubuntu-wks" ]]; then
+    if [[ $HOSTNAME == "lubuntu-wks" || $HOSTNAME == "lubuntu" ]]; then
     	echo "  + Backuping up lubuntu scripts directory"
     	sudo cp -R /home/juniper/Scripts/* $BACKUP_DIR
     fi
@@ -51,7 +52,7 @@ performUpgrade () {
     sudo cp ${VERSION} $BASE_DIR
 
     # Copy new Lubuntu scripts
-    if [[ $HOSTNAME == "lubuntu-wks" ]]; then
+    if [[ $HOSTNAME == "lubuntu-wks" || $HOSTNAME == "lubuntu" ]]; then
     	echo "  + Copying new lubuntu scripts"
     	sudo cp -R ${SCRIPT_DIR}/scripts/* /home/juniper/Scripts/
     fi
@@ -61,7 +62,7 @@ performUpgrade () {
     sudo chown root:root ${BASE_DIR}/*
 
    	# Lubuntu specific
-   	if [[ $HOSTNAME == "lubuntu-wks" ]]; then
+    if [[ $HOSTNAME == "lubuntu-wks" || $HOSTNAME == "lubuntu" ]]; then
    		echo "  + Setting permissions on new Lubuntu scripts"
    		sudo chmod 755 /home/juniper/Scripts/*
    		sudo chown juniper:juniper /home/juniper/Scripts/*
@@ -102,7 +103,7 @@ if [[ $HOSTNAME == "SDK-dmz-svr" ]]; then
     	VERSION="${PWD}/.sdk-script-version"
     	SCRIPT_DIR="${PWD}/dmz-svr"
    	fi
-elif [[ $HOSTNAME == "lubuntu-wks" ]]; then
+elif [[ $HOSTNAME == "lubuntu-wks" || $HOSTNAME == "lubuntu"]]; then
     # Check for /tmp for admin-menu
    	if [ -d /tmp/SDK-Script-Update ]; then
    		VERSION="/tmp/SDK-Script-Update/.sdk-script-version"
