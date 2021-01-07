@@ -24,7 +24,7 @@ def main():
 		print("|| Juniper SRX Demo Kit: Extras Menu                                 ||")
 		print("=======================================================================")
 		print("1) ATP Cloud: API: IPFilter")
-		print("1) ATP Cloud: Adaptive Threat Profiling")
+		print("2) ATP Cloud: Adaptive Threat Profiling")
 		print("\nq) Quit the menu")
 		print("=======================================================================")
 		choice = input("\nPlease select a menu item: ")
@@ -35,7 +35,7 @@ def main():
 			sleep(3)
 			system("/usr/local/bin/atp-api-ipfilter.sh")
 			main()
-		if choice == "2":
+		elif choice == "2":
 			system("/usr/bin/clear")
 			print("....Running Adaptive Threat Profiling Traffic...")
 			sleep(3)

@@ -38,6 +38,7 @@ if [ $APPToken == "ADD-YOUR-TOKEN-HERE" ]; then
 	echo "ERROR: The APPToken variable hasn't been set!"
 	echo "  - Go to ATP Cloud WebUI (Administration > Application Tokens) to generate one"
 	echo "  - Add Token to /usr/local/bin/atp-api-ipfilter.sh script"
+    sleep 10
 	exit
 fi
 

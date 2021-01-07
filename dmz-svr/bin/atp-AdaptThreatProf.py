@@ -50,6 +50,6 @@ for ip in profSrc:
 
 print(" ")
 print("========== COMPLETED! ===========")
-sleep(5)
+sleep(10)
 
 ## End of Script ##
