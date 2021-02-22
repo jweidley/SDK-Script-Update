@@ -56,8 +56,13 @@ performUpgrade () {
 
     # Backup Lubuntu scripts
     if [[ $HOSTNAME == "lubuntu" ]]; then
-    	echo "- Backing up lubuntu scripts directory"
-    	sudo cp -R /home/juniper/Scripts/* $BACKUP_DIR
+        if [ -d /home/juniper/Scripts ]; then
+    	    echo "- Backing up lubuntu scripts directory"
+    	    sudo cp -R /home/juniper/Scripts/* $BACKUP_DIR
+        else
+            echo "! Lubuntu Scripts directory NOT found, creating..."
+            sudo mkdir /home/juniper/Scripts/
+            sudo chown juniper:juniper /home/juniper/Scripts
     fi
 
     ########################
