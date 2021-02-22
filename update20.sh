@@ -50,9 +50,9 @@ performUpgrade () {
         echo "- Creating backup copy of sdk.conf"
         sudo cp ${CONFIG_DIR}/sdk.conf ${CONFIG_DIR}/sdk.conf.bak
     else
-        echo "- Creating config directory $CONFIG_DIR"
+        echo "- Creating config directory ${CONFIG_DIR}"
         sudo mkdir ${CONFIG_DIR}
-    if
+    fi
 
     # Backup Lubuntu scripts
     if [[ $HOSTNAME == "lubuntu" ]]; then
@@ -64,13 +64,13 @@ performUpgrade () {
     # INSTALL
     ########################
     # Copy conf file to CONFIG_DIR
-    echo "- Copying new sdk.conf to $CONFIG_DIR"
-    sudo cp ${ETC_DIR}/sdk.conf $CONFIG_DIR
+    echo "- Copying new sdk.conf to ${CONFIG_DIR}"
+    sudo cp ${ETC_DIR}/sdk.conf ${CONFIG_DIR}
 
     # Copy new scripts to SCRIPT_DIR
     echo "- Copying new scripts to $BASE_DIR"
     sudo cp ${SCRIPT_DIR}/bin/* $BASE_DIR
-    sudo cp ${VERSION} $BASE_DIR
+    sudo cp ${VERSION} ${BASE_DIR}
 
     # Copy new Lubuntu scripts
     if [[ $HOSTNAME == "lubuntu" ]]; then
