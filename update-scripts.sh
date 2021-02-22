@@ -17,12 +17,12 @@ OSVERSION=`egrep VERSION_ID /etc/os-release | awk -F= '{print $2}' | sed s/\"//g
 echo "========================================================"
 echo " SDK Script Update"
 echo "========================================================"
-if [[ $OSVERSION == "18.04" ]]; then
-    echo "- Found version 18..."
-    update18.sh
+if [[ $OSVERSION == "18.04" || $OSVERSION == "16.04" ]]; then
+    echo "- Original Found version..."
+    ./update18.sh
 elif [[ $OSVERSION == "20.04" ]]; then
     echo "- Found version 20..."
-    update20.sh
+    ./update20.sh
 else
     echo "!! No supportable versions found...exiting !!"
     exit
