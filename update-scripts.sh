@@ -28,7 +28,7 @@ echo " SDK Script Update"
 echo "========================================================"
 if [[ $OSVERSION == "18.04" || $OSVERSION == "16.04" ]]; then
     echo "- Original version found..."
-    $SCRIPT_DIR//update18.sh
+    $SCRIPT_DIR/update18.sh
 elif [[ $OSVERSION == "20.04" ]]; then
     echo "- Found version 20..."
     $SCRIPT_DIR/update20.sh
