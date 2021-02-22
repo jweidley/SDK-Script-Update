@@ -18,6 +18,7 @@
 HOSTNAME=`/bin/hostname`
 BASE_DIR="/usr/local/bin"
 BACKUP_DIR="/usr/local/bin/SCRIPT-BACKUP"
+CONFIG_DIR="/etc/sdk"
 
 ####################
 # Functions
@@ -25,6 +26,9 @@ BACKUP_DIR="/usr/local/bin/SCRIPT-BACKUP"
 performUpgrade () {
     echo "- Setting script source directory to $SCRIPT_DIR"
 
+    ########################
+    # BACKUP
+    ########################
     # Check for other script backups and remove them
     if [ -d $BACKUP_DIR ]; then
         echo "- Removing old script backups"
@@ -41,11 +45,27 @@ performUpgrade () {
         sudo mkdir $BACKUP_DIR
     fi
 
+    # Make a backup of the sdk.conf
+    if [ -d $CONFIG_DIR ]; then
+        echo "- Creating backup copy of sdk.conf"
+        sudo cp ${CONFIG_DIR}/sdk.conf ${CONFIG_DIR}/sdk.conf.bak
+    else
+        echo "- Creating config directory $CONFIG_DIR"
+        sudo mkdir ${CONFIG_DIR}
+    if
+
     # Backup Lubuntu scripts
     if [[ $HOSTNAME == "lubuntu" ]]; then
     	echo "  + Backuping up lubuntu scripts directory"
     	sudo cp -R /home/juniper/Scripts/* $BACKUP_DIR
     fi
+
+    ########################
+    # INSTALL
+    ########################
+    # Copy conf file to CONFIG_DIR
+    echo "- Copying new sdk.conf to $CONFIG_DIR"
+    sudo cp ${ETC_DIR}/sdk.conf $CONFIG_DIR
 
     # Copy new scripts to SCRIPT_DIR
     echo "- Copying new scripts to $BASE_DIR"
@@ -93,22 +113,26 @@ if [[ $HOSTNAME == "dmz-svr" ]]; then
     if [ -d /tmp/SDK-Script-Update ]; then
         VERSION="/tmp/SDK-Script-Update/.sdk-script-version"
     	SCRIPT_DIR="/tmp/SDK-Script-Update/dmz-svr20"
+    	ETC_DIR="/tmp/SDK-Script-Update/dmz-svr20/etc"
     # Default to the current directory for manual
     else
         PWD=`/bin/pwd`
     	VERSION="${PWD}/.sdk-script-version"
     	SCRIPT_DIR="${PWD}/dmz-svr20"
+        ETC_DIR="${PWD}/dmz-svr20/etc"
    	fi
 elif [[ $HOSTNAME == "lubuntu" ]]; then
     # Check /tmp for admin-menu
    	if [ -d /tmp/SDK-Script-Update ]; then
    		VERSION="/tmp/SDK-Script-Update/.sdk-script-version"
    		SCRIPT_DIR="/tmp/SDK-Script-Update/lubuntu20"
+   		ETC_DIR="/tmp/SDK-Script-Update/lubuntu20/etc"
    	# Default to the current directory for manual
    	else
         PWD=`/bin/pwd`
         VERSION="${PWD}/.sdk-script-version"
     	SCRIPT_DIR="${PWD}/lubuntu20"
+    	ETC_DIR="${PWD}/lubuntu20/etc"
     fi
 else
     echo "!! ERROR !! - No valid server type found."
