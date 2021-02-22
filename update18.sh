@@ -43,7 +43,7 @@ performUpgrade () {
 
     # Backup Lubuntu scripts
     if [[ $HOSTNAME == "lubuntu-wks" ]]; then
-    	echo "  + Backuping up lubuntu scripts directory"
+    	echo "  + Backing up lubuntu scripts directory"
     	sudo cp -R /home/juniper/Scripts/* $BACKUP_DIR
     fi
 
