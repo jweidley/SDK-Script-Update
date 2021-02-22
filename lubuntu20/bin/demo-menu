@@ -1,0 +1,140 @@
+#!/usr/bin/python3
+# Purpose: Workstation Demo Menu
+# Version: 0.6
+######################################################################################
+# ChangeLog:
+# 0.4: Initial Public Release
+# 0.5: 16Apr20: Added AppTrack & organized menu
+# 0.6: 9Dec20: Determine which terminal to use, fix gterm syntax
+######################################################################################
+
+################
+# Modules
+################
+from os import system
+from time import sleep
+from pathlib import Path
+
+################
+# Variables
+################
+gnome_terminal = Path("/usr/bin/gnome-terminal")
+lxterminal = Path("/usr/bin/lxterminal")
+APPTRACK_CMD = "/usr/local/bin/apptrack-generate.py"
+WEBTRAFFIC_CMD = "/usr/local/bin/webTrafficGen.py"
+WEBFILTER_CMD = "/usr/local/bin/webfilter-download.py"
+VIRUSDOWNLOAD_CMD = "/usr/local/bin/virus-download.py"
+CONTENTFILTER_CMD = "/usr/local/bin/bad-extension-download.py"
+PCAP_RCVR_CMD = "/usr/local/bin/srx_pcap_receiver.py -o /tmp/Juniper_IDP_PCAP_Storage -vv"
+
+
+################
+# Functions
+################
+#-----------------------------------------------------------------------------------------
+# runTerm calls the correct terminal program based on whether gnome-terminal is installed
+# NOTES: 
+# - Dont care about qterminal because Lubuntu20 will have gterm installed
+# - fail if gterm or lxterm is not installed. Print message how to fix
+#-----------------------------------------------------------------------------------------
+def runTerm(cmd,AppName):
+    #print("new function")
+    if gnome_terminal.exists():
+        system("/usr/bin/gnome-terminal --geometry=90x20 --tab -t \"" + AppName + "\" -- " + cmd + " 2>/dev/null")
+    elif lxterminal.exists():
+        system("/usr/bin/lxterminal --geometry=90x20 --command=\"" + cmd + "\" 2>/dev/null")
+    else:
+        print("!!! Couldnt determine the correct terminal to use, exiting !!!")
+        print("!!! Ensure gnome-terminal is installed (sudo apt install gnome-terminal) !!!")
+        exit()
+
+#-----------------------------------------------------------------------------------------
+# main:
+#-----------------------------------------------------------------------------------------
+def main():
+    choice = '0'
+    while choice == '0':
+        system("/usr/bin/clear")
+        print("=======================================================================")
+        print("|| Juniper SRX Demo Kit: Lubuntu Menu                                ||")
+        print("=======================================================================")
+        print("1) AppTrack: Generate Application Traffic")
+        print("2) EnhancedWebFilter: Start Traffic Generator & Launch Browser")
+        print("3) AntiVirus: Download Test Viri ")
+        print("4) Content Filter: Download Files & Launch Browser ")
+        print("5) IDP Packetlog: Start PCAP Receiver ")
+        print("6) UserFW: Rerun login script to populate vSRX auth-table ")
+        print("7) LocalWebFilter: Start Traffic Generator & Launch browser")
+        print("\nq) Quit the menu")
+        print("=======================================================================")
+        choice = input("\nPlease select a menu item: ")
+
+        if choice == "1":
+            system("/usr/bin/clear")
+            print("....Starting traffic generator...please wait a few seconds...")
+            sleep(3)
+            runTerm(APPTRACK_CMD,"AppTrack")
+            main()
+        elif choice == "2":
+            system("/usr/bin/clear")
+            print("....Starting traffic generator...please wait a few seconds...")
+            sleep(3)
+            if gnome_terminal.exists():
+                system("/usr/bin/gnome-terminal --tab -t \"WebTraffic\" --command \"" + WEBTRAFFIC_CMD + "\" --tab -t \"EWF-Sites\" --command \"" + WEBFILTER_CMD + "\" 2>/dev/null")
+                sleep(3)
+                system("/usr/local/bin/open-webfilter-sites.py 2>/dev/null")
+                main()
+            else:
+                system("/usr/bin/lxterminal --command=\"" + WEBTRAFFIC_CMD + "\" 2>/dev/null")
+                sleep(3)
+                system("/usr/local/bin/open-webfilter-sites.py 2>/dev/null")
+                main()
+        elif choice == "3":
+            system("/usr/bin/clear")
+            print("....Starting Virus Downloader...please wait a few seconds...")
+            sleep(3)
+            runTerm(VIRUSDOWNLOAD_CMD,"Virus-Downloads")
+            main()
+        elif choice == "4":
+            system("/usr/bin/clear")
+            print("....Starting to download files with restricted extensions...please wait a few seconds...")
+            sleep(3)
+            runTerm(CONTENTFILTER_CMD,"Content-Filter")
+            sleep(3)
+            system("/usr/local/bin/open-contentfilter-sites.py 2>/dev/null")
+            main()
+        elif choice == "5":
+            system("/usr/bin/clear")
+            print("....Starting PCAP Receiver for IDP Capture...please wait a few seconds...")
+            sleep(3)
+            runTerm(PCAP_RCVR_CMD,"PCAP-Receiver")
+            main()
+        elif choice == "6":
+            system("/usr/bin/clear")
+            print("....Populating auth-table on vSRX...please wait a few seconds...")
+            sleep(3)
+            system("/usr/local/bin/update-local-userfw.py")
+            main()
+        elif choice == "7":
+            system("/usr/bin/clear")
+            print("....Starting to Generate Traffic...please wait a few seconds...")
+            sleep(3)
+            runTerm(WEBFILTER_CMD,"Web-Filter")
+            sleep(3)
+            system("/usr/local/bin/open-localwebfilter-sites.py 2>/dev/null")
+            main()
+        elif choice == "q":
+            print("Exiting...")
+            exit()
+        else:
+            print("Invalid option...")
+            sleep(3)
+            system("/usr/bin/clear")
+            main()
+
+################
+# Main
+################
+main()
+
+## End of Script ##

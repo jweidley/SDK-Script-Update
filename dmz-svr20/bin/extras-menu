@@ -1,0 +1,51 @@
+#!/bin/bash
+# Purpose: DMZ-Svr Extras Menu. Used to easily run undocumented scripts/demos
+# Author: John Weidley
+# Version: 0.1
+######################################################################################
+# ChangeLog
+# 0.1: 20Feb21: Initial Release
+######################################################################################
+
+# Set the menu color palette
+export NEWT_COLORS='
+    root=white,black
+    roottext=,black
+    border=black,lightgray
+    window=lightgray,lightgray
+    shadow=black,gray
+    title=black,lightgray
+    button=black,cyan
+    actbutton=white,cyan
+    compactbutton=black,lightgray
+    checkbox=black,lightgray
+    actcheckbox=lightgray,cyan
+    entry=black,lightgray
+    disentry=gray,lightgray
+    label=black,lightgray
+    listbox=black,lightgray
+    actlistbox=black,cyan
+    sellistbox=lightgray,black
+    actsellistbox=lightgray,black
+    textbox=black,lightgray
+    acttextbox=black,cyan
+    emptyscale=,gray
+    fullscale=,cyan
+    helpline=white,black
+' \
+
+CHOICE=$(whiptail --backtitle "SRX Demo Kit (dmz-svr)" --title "Extras Menu" --menu "Choose Traffic to generate:" 18 50 10 \
+  "1." "ATP Cloud: API: IPFilter" \
+  "2." "ATP Cloud: Adaptive Threat Profiling" 3>&1 1>&2 2>&3)
+
+if [ -z "$CHOICE" ]; then
+  echo "...Leaving extras menu..."
+fi
+case $CHOICE in
+    "1.") /usr/local/bin/atp-api-ipfilter.sh
+         ;;
+    "2.") /usr/local/bin/atp-AdaptThreatProf.py
+         ;;
+esac
+
+## End of Script ##

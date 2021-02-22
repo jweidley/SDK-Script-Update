@@ -1,0 +1,60 @@
+#!/bin/bash
+# Purpose: DMZ-Svr Demo Menu.
+# Author: John Weidley
+# Version: 0.1
+######################################################################################
+# ChangeLog
+# 0.1: 20Feb21: Initial Release
+######################################################################################
+
+################
+# Variables
+################
+# Set the menu color palette
+export NEWT_COLORS='
+    root=white,black
+    roottext=,black
+    border=black,lightgray
+    window=lightgray,lightgray
+    shadow=black,gray
+    title=black,lightgray
+    button=black,cyan
+    actbutton=white,cyan
+    compactbutton=black,lightgray
+    checkbox=black,lightgray
+    actcheckbox=lightgray,cyan
+    entry=black,lightgray
+    disentry=gray,lightgray
+    label=black,lightgray
+    listbox=black,lightgray
+    actlistbox=black,cyan
+    sellistbox=lightgray,black
+    actsellistbox=lightgray,black
+    textbox=black,lightgray
+    acttextbox=black,cyan
+    emptyscale=,gray
+    fullscale=,cyan
+    helpline=white,black
+' \
+
+################
+# Main
+################
+while true; do
+    CHOICE=$(whiptail --backtitle "SRX Demo Kit (dmz-svr)" --title "Demo Menu" --menu "Choose Traffic to generate:" 18 60 10 \
+      "1." "Screen Demo: Run Scan to Trusted Network" \
+      "2." "IPS Demo: Run Web Scan to Metasploitable" 3>&1 1>&2 2>&3)
+
+    if [ -z "$CHOICE" ]; then
+        echo "...Leaving extras menu..."
+        break
+    fi
+    case $CHOICE in
+        "1.") /usr/local/bin/hping3-scan.py
+            ;;
+        "2.") /usr/local/bin/nikto-scan.py
+            ;;
+    esac
+done
+
+## End of Script ##

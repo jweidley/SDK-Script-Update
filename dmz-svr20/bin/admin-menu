@@ -1,0 +1,118 @@
+#!/usr/bin/python3
+# Purpose: DMZ-Svr ADMIN Menu
+# Version: 0.6
+######################################################################################
+# ChangeLog:
+# 0.1: Initial Release
+# 0.2: 24Mar20: Public Release
+# 0.3: 6Apr20: Added continuousRun of traffic generation scripts
+# 0.4: 22May20: Added color & warning to script update about BASE config
+# 0.5: 24May20: Script Update, added Internet check.
+# 0.6: 19Feb21: Added configuration via sdk.conf
+######################################################################################
+
+################
+# Modules
+################
+from os import system
+from time import sleep
+import socket
+from sdkModules import *
+
+################
+# Variables
+################
+class style:
+	YELLOW = '\033[93m'
+	END = '\033[0m'
+
+################
+# Functions
+################
+def main():
+    # Read SDK configuration file
+    config = readConfig()
+
+    choice = '0'
+    while choice == '0':
+        system("/usr/bin/clear")
+        print("=======================================================================")
+        print("|| Juniper SRX Demo Kit: -ADMIN- DMZ-SVR Menu                        ||")
+        print("=======================================================================")
+        print("1) Update Scripts from GitHub")
+        print("2) START Continuously traffic (SCREENS,IDP)")
+        print("3) STOP Continuous traffic ")
+        print("\nq) Quit the menu")
+        print("=======================================================================")
+        try:
+            choice = input("\nPlease select a menu item: ")
+        except EOFError:
+            pass
+
+        if choice == "1":
+            system("/usr/bin/clear")
+            print("##################################################################")
+            print(" Script Update:")
+            print(style.YELLOW + "   - Ensure the BASE config is load on the vSRX!" + style.END)
+            print("##################################################################")
+            sleep(2)
+            print("- Checking Internet Connectivity...")
+            sleep(2)
+
+            # Do a name lookup for github to verify Internet connectivity
+            try:
+                host = socket.gethostbyname("github.com")
+                if host:
+                    print("  + Passed")
+            except:
+                print("  + FAILED! Troubleshoot Internet connectivity.")
+                exit(1)
+
+            # Clean up	
+            print("- Cleaning up destination directory...")
+            system("sudo rm -rf /tmp/SDK-Script-Update")
+
+            # Get download URL from config file
+            print("- Downloading scripts from GitHub...\n")
+            updateURL = checkConfig(config, "admin", "url")
+            print("    + Update URL: " + updateURL)
+            system("/usr/bin/git clone " + updateURL + " /tmp/SDK-Script-Update")
+            sleep(2)
+
+            # Install new scripts
+            print("\n- Installing new scripts...")
+            system("/tmp/SDK-Script-Update/update-scripts.sh")
+
+            # Clean up
+            print("- Cleaning up destination directory...")
+            system("sudo rm -rf /tmp/SDK-Script-Update")
+            sleep(5)
+            main()
+        elif choice == "2":
+            system("/usr/bin/clear")
+            print("... STARTING Continuous traffic...")
+            sleep(2)
+            system("/usr/local/bin/continuousRun.sh start")
+            main()
+        elif choice == "3":
+            system("/usr/bin/clear")
+            print("... STOPPING Continuous traffic...")
+            sleep(2)
+            system("/usr/local/bin/continuousRun.sh stop")
+            main()
+        elif choice == "q":
+            print("Exiting...")
+            exit()
+        else:
+            print("Invalid option...")
+            print (choice)
+            sleep(2)
+            system("/usr/bin/clear")
+            main()
+
+################
+# Main
+################
+main()
+
+## End of Script ##
