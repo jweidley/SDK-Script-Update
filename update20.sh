@@ -35,7 +35,7 @@ performUpgrade () {
         sudo rm -rf $BACKUP_DIR
         echo "- Making Script Backup Directory: $BACKUP_DIR"
         sudo mkdir $BACKUP_DIR
-        echo "- Backuping up existing scripts"
+        echo "- Backing up existing scripts"
         sudo cp ${BASE_DIR}/demo-menu $BACKUP_DIR
         sudo cp ${BASE_DIR}/*.py $BACKUP_DIR
         sudo cp ${BASE_DIR}/*.sh $BACKUP_DIR
@@ -56,7 +56,7 @@ performUpgrade () {
 
     # Backup Lubuntu scripts
     if [[ $HOSTNAME == "lubuntu" ]]; then
-    	echo "  + Backuping up lubuntu scripts directory"
+    	echo "- Backing up lubuntu scripts directory"
     	sudo cp -R /home/juniper/Scripts/* $BACKUP_DIR
     fi
 
