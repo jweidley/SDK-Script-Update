@@ -63,6 +63,7 @@ performUpgrade () {
             echo "! Lubuntu Scripts directory NOT found, creating..."
             sudo mkdir /home/juniper/Scripts/
             sudo chown juniper:juniper /home/juniper/Scripts
+        fi
     fi
 
     ########################
