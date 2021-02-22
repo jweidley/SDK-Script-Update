@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 # Purpose: Wrapper to call the correct update script.
 # Version: 0.1
 #############################################################
