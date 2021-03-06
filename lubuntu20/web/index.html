@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<title>Sec-Demo.net:Lubuntu</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="w3.css">
+<body>
+  <div class="w3-cell-row">
+    <div class="w3-container w3-green-jw w3-cell">
+      <h2>Sec-Demo.net</h2>
+      <p>(Workstation Page)</p>
+    </div>
+  </div>
+
+  <div class="w3-bar w3-black">
+    <a href="index.html" class="w3-bar-item w3-button">Demos</a>
+    <a href="devices.html" class="w3-bar-item w3-button">Devices</a>
+  </div>
+
+  <div class="w3-cell-row">
+    <div class="w3-container w3-white w3-cell">
+      <img src="vsrx.png">
+    </div>
+  </div>
+
+  <div class="w3-container">
+
+    <h2>Available Demos</h2>
+    <p>Click on the headers below to expand and see the details.</p>
+    
+    <button onclick="myFunction('AV')" class="w3-button w3-block w3-left-align w3-grey" style="width:65%">> Anti-Virus</button>
+    
+    <div id="AV" class="w3-hide w3-container"  style="width:65%">
+      <!--<p>AV links...</p>-->
+      <table class="w3-table w3-striped w3-bordered">
+        <tr>
+          <th>Description</th>
+          <th>Links</th>
+        </tr>
+        <tr>
+          <td><p>Use these links to manually test different types of virus downloads.</p><p>The destinations are the dmz-svr to avoid detections from security equipment outside of the demo environment.</p></td>
+          <td>
+            <ul class="w3-ul w3-hoverable">
+              <li class="w3-hover-red"><a href="http://192.168.200.20/eicar_com.zip" target="_blank" rel="noopener noreferrer">Compressed EICAR</a></li>
+              <li class="w3-hover-red"><a href="http://192.168.200.30/eicarcom2.zip" target="_blank" rel="noopener noreferrer">Nested Compressed EICAR</a></li>
+            </ul>
+          </td>
+        </tr>
+      </table>
+    </div>
+    
+    <button onclick="myFunction('EWF')" class="w3-button w3-block w3-left-align w3-grey" style="width:65%">> Enhanced Web Filtering</button>
+      
+      <!--Enhanced Web Filter-->
+      <div id="EWF" class="w3-hide w3-container"  style="width:65%">
+        <table class="w3-table w3-striped w3-bordered">
+          <tr>
+            <th>Description</th>
+            <th>Links</th>
+          </tr>
+          <tr>
+            <td><p>Use these links to manually test different Enhanced Web Filtering categories</p></td>
+            <td>
+              <ul class="w3-ul w3-hoverable">
+                <li class="w3-hover-red"><a href="https://www.legalsportsreport.com/sports-betting" target="_blank" rel="noopener noreferrer">Legal Sports Report</a></li>
+                <li class="w3-hover-red"><a href="https://www.oddsshark.com/sportsbook-review" target="_blank" rel="noopener noreferrer">Odds Shark</a></li>
+                <li class="w3-hover-red"><a href="https://mybookie.ag/sportsbook/" target="_blank" rel="noopener noreferrer">My Bookie</a></li>
+                <li class="w3-hover-red"><a href="https://www.sportsbetting.ag" target="_blank" rel="noopener noreferrer">Sports Betting</a></li>
+                <li class="w3-hover-red"><a href="https://www.sportsbettingdime.com" target="_blank" rel="noopener noreferrer">Sports Betting Dime</a></li>
+                <li class="w3-hover-red"><a href="http://www.indeed.com/hire/sem-haj-dual?kw=job+search&sid=us_googsrchhajExactdual-job+search&matchtype=e&network=g&device=c&devicemodel=&creative=376971381268&keyword=job%20search&placement=&param1=&param2=&random=859706314" target="_blank" rel="noopener noreferrer">Indeed Job Search</a></li>
+                <li class="w3-hover-red"><a href="https://www.ziprecruiter.com/search-jobs?cvosrc-dgljs|google-search|cmp-1704534201|adg-74940792908|kw-job%20search|mt-e" target="_blank" rel="noopener noreferrer">Zip Recruiter</a></li>
+                <li class="w3-hover-red"><a href="https://www.monster.com/jobs/l-boston-ma" target="_blank" rel="noopener noreferrer">Monster Job Search</a></li>
+                <li class="w3-hover-red"><a href="https://www.glassdoor.com/Job/boston-jobs-SRCH_IL.0,6_IC1154532.htm" target="_blank" rel="noopener noreferrer">GlassDoor Job Search</a></li>
+              </ul>
+            </td>
+          </tr>
+        </table>
+        </div>
+
+        <!--UserFW Menu-->
+        <button onclick="myFunction('UserFW')" class="w3-button w3-block w3-left-align w3-grey" style="width:65%">> UserFW</button>
+          <div id="UserFW" class="w3-hide w3-container"  style="width:65%">
+            <table class="w3-table w3-striped w3-bordered">
+              <tr>
+                <th>Description</th>
+                <th>Links</th>
+              </tr>
+              <tr>
+                <td><p>Use these links to manually test access to sites.</p></td>
+                <td>
+                  <ul class="w3-ul w3-hoverable">
+                    <li class="w3-hover-red"><a href="https://www.facebook.com/JuniperNetworks" target="_blank" rel="noopener noreferrer">Facebook: Juniper Networks</a></li>
+                    <li class="w3-hover-red"><a href="https://www.amazon.com/" target="_blank" rel="noopener noreferrer">Amazon</a></li>
+                    <li class="w3-hover-red"><a href="https://www.gmail.com/gmail/" target="_blank" rel="noopener noreferrer">Gmail</a></li>
+                  </ul>
+                </td>
+              </tr>
+            </table>
+            </div>
+    
+      </div>
+    
+    </div>
+    <script>
+    function myFunction(id) {
+      var x = document.getElementById(id);
+      if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+      } else { 
+        x.className = x.className.replace(" w3-show", "");
+      }
+    }
+    </script>
+
+</body>
+</html>

@@ -1,15 +1,10 @@
 #!/bin/bash
 # Purpose: Update SDK scripts
-# Version: 0.7
+# Version: 0.2
 #############################################################
 # ChangeLog:
-# 0.1: Initial Release
-# 0.2: 24Mar20: Public Release
-# 0.3: 13Apr20: Added version tracking (.sdk-script-version)
-# 0.4: 14Apr20: Added logic to only upgrade if needed based on script version
-# 0.5: 17Dec20: Added condition for lubuntu-20
-# 0.6: 7Jan21: Added condition for ubuntu-20
-# 0.7: 21Feb21:  version 20 specific, fixed backup issue on clean installs
+# 0.1: 21Feb21: version 20 specific, fixed backup issue on clean installs
+# 0.2: 6Mar21: Added Lubuntu homepage
 #############################################################
 
 ####################
@@ -82,6 +77,9 @@ performUpgrade () {
     if [[ $HOSTNAME == "lubuntu" ]]; then
     	echo "  + Copying new lubuntu scripts"
     	sudo cp -R ${SCRIPT_DIR}/scripts/* /home/juniper/Scripts/
+    	echo "  + Copying new homepage"
+    	sudo cp -R ${SCRIPT_DIR}/web/* /home/juniper/Web/
+    	sudo cp -R ${SCRIPT_DIR}/web/* /home/demo-user/Web/
     fi
 
     echo "- Setting permissions and ownership of new script files"

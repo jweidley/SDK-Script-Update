@@ -1,11 +1,12 @@
 #!/usr/bin/python3
 # Purpose: Workstation Demo Menu
-# Version: 0.6
+# Version: 0.7
 ######################################################################################
 # ChangeLog:
 # 0.4: Initial Public Release
 # 0.5: 16Apr20: Added AppTrack & organized menu
 # 0.6: 9Dec20: Determine which terminal to use, fix gterm syntax
+# 0.7: 27Feb21: Removed PCAP received (no python3 support)
 ######################################################################################
 
 ################
@@ -62,9 +63,8 @@ def main():
         print("2) EnhancedWebFilter: Start Traffic Generator & Launch Browser")
         print("3) AntiVirus: Download Test Viri ")
         print("4) Content Filter: Download Files & Launch Browser ")
-        print("5) IDP Packetlog: Start PCAP Receiver ")
-        print("6) UserFW: Rerun login script to populate vSRX auth-table ")
-        print("7) LocalWebFilter: Start Traffic Generator & Launch browser")
+        print("5) UserFW: Rerun login script to populate vSRX auth-table ")
+        print("6) LocalWebFilter: Start Traffic Generator & Launch browser")
         print("\nq) Quit the menu")
         print("=======================================================================")
         choice = input("\nPlease select a menu item: ")
@@ -105,17 +105,11 @@ def main():
             main()
         elif choice == "5":
             system("/usr/bin/clear")
-            print("....Starting PCAP Receiver for IDP Capture...please wait a few seconds...")
-            sleep(3)
-            runTerm(PCAP_RCVR_CMD,"PCAP-Receiver")
-            main()
-        elif choice == "6":
-            system("/usr/bin/clear")
             print("....Populating auth-table on vSRX...please wait a few seconds...")
             sleep(3)
             system("/usr/local/bin/update-local-userfw.py")
             main()
-        elif choice == "7":
+        elif choice == "6":
             system("/usr/bin/clear")
             print("....Starting to Generate Traffic...please wait a few seconds...")
             sleep(3)
