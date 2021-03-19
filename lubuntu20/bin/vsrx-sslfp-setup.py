@@ -229,7 +229,7 @@ print
 print(" vSRX:")
 print("  1. Load SSLFP configuration")
 print("  2. On the CLI, use this command to install the CA cert bundle:")
-print("    \"request security pki ca-certificate load ca-profile ssl-ca-bundle filename cacert.pem | no-more\"")
+print("    \"request security pki ca-certificate ca-profile-group load ca-group-name ssl-ca-bundle filename cacert.pem | no-more\"")
 print
 print("-------------------------------------------------------------------------------------")
 print
