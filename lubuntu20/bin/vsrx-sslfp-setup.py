@@ -43,7 +43,7 @@ caFile = ""
 # Firewall Variables
 user = "juniper"
 passwd = "juniper123"
-vsrx = "192.168.100.100"
+vsrx = "192.168.100.1"
 dev = Device(host=vsrx,gather_facts='False',user=user,password=passwd)
 
 # CA Cert Variables
