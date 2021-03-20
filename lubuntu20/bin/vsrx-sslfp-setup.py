@@ -93,7 +93,7 @@ def loadCaGroup(dev):
 
     try:
         cmd3 = dev.rpc.request_security_pki_ca_profile_group_load(ca_group_name=caGroupName,filename=filename)
-        print("....Done!")
+        print("  + CA Bundle successfully loaded")
         #print(etree.tostring(cmd3,pretty_print=True,encoding='unicode'))
         print
         sleep(3)
@@ -224,10 +224,7 @@ print("  1. The vSRX CA cert (sdk-sslproxy-root.crt) is in the current directory
 print("     to the browsers certificate store & restart the browser before testing.")
 print
 print(" vSRX:")
-print("  1. Load SSLFP configuration")
-print("  2. On the CLI, use this command to install the CA cert bundle:")
-print("    \"request security pki ca-certificate ca-profile-group load ca-group-name ssl-ca-bundle filename cacert.pem | no-more\"")
-print
+print("  1. Load partial SSLFP configuration (PARTIAL-SDK-vsrx1-SSLFP.conf")
 print("-------------------------------------------------------------------------------------")
 print
 
