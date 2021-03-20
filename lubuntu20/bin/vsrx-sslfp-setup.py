@@ -224,7 +224,7 @@ print("  1. The vSRX CA cert (sdk-sslproxy-root.crt) is in the current directory
 print("     to the browsers certificate store & restart the browser before testing.")
 print
 print(" vSRX:")
-print("  1. Load partial SSLFP configuration (PARTIAL-SDK-vsrx1-SSLFP.conf")
+print("  1. Load partial SSLFP configuration (PARTIAL-SDK-vsrx1-SSLFP.conf)")
 print("-------------------------------------------------------------------------------------")
 print
 
