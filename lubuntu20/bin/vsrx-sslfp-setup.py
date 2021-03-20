@@ -192,11 +192,8 @@ scp.get(export_file, export_name)
 
 ######################################
 # Load CA Bundle on vSRX
-# ! The CA bundle has to be installed from the CLI so the correct commands
-# ! are added to the configuration. This function remains of undocumented
-# ! uses.
 ######################################
-#loadCaGroup(dev)
+loadCaGroup(dev)
 
 ######################################
 # Load SSL Proxy cert locally
