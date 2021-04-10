@@ -1,11 +1,12 @@
 #!/bin/bash
 # Purpose: DMZ-Svr Extras Menu. Used to easily run undocumented scripts/demos
 # Author: John Weidley
-# Version: 0.2
+# Version: 0.3
 ######################################################################################
 # ChangeLog
 # 0.1: 20Feb21: Initial Release
 # 0.2: 6Mar21: Added iPerf
+# 0.3: 10Apr21: Added API CC URL
 ######################################################################################
 
 # Set the menu color palette
@@ -37,8 +38,9 @@ export NEWT_COLORS='
 
 CHOICE=$(whiptail --backtitle "SRX Demo Kit (dmz-svr)" --title "Extras Menu" --menu "Choose Traffic to generate:" 18 50 10 \
   "1." "ATP Cloud: API: IPFilter" \
-  "2." "ATP Cloud: Adaptive Threat Profiling" \
-  "3." "Start iPerf Server" 3>&1 1>&2 2>&3)
+  "2." "ATP Cloud: API: CC URL" \
+  "3." "ATP Cloud: Adaptive Threat Profiling" \
+  "4." "Start iPerf Server" 3>&1 1>&2 2>&3)
 
 if [ -z "$CHOICE" ]; then
   echo "...Leaving extras menu..."
@@ -46,9 +48,11 @@ fi
 case $CHOICE in
     "1.") /usr/local/bin/atp-api-ipfilter.sh
          ;;
-    "2.") /usr/local/bin/atp-AdaptThreatProf.py
+    "2.") /usr/local/bin/atp-api-cc-url.sh
          ;;
-    "3.") /usr/local/bin/iperf-svr.py
+    "3.") /usr/local/bin/atp-AdaptThreatProf.py
+         ;;
+    "4.") /usr/local/bin/iperf-svr.py
          ;;
 esac
 

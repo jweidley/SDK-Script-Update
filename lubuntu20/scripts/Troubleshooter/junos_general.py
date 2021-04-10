@@ -6,10 +6,10 @@
 # Modules
 import jxmlease
 
-def test_vsrx_SYSTEM_junos_version_193r1______(dev):
-    parser = jxmlease.EtreeParser()
-    res = parser(dev.rpc.get_software_information())
-    return res["software-information"]["junos-version"] == "19.3R1.8"
+#def test_vsrx_SYSTEM_junos_version_193r1______(dev):
+#    parser = jxmlease.EtreeParser()
+#    res = parser(dev.rpc.get_software_information())
+#    return res["software-information"]["junos-version"] == "19.3R1.8"
 
 
 def test_vsrx_SYSTEM_chassis_alarms___________(dev):

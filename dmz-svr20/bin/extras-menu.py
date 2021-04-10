@@ -1,10 +1,11 @@
 #!/usr/bin/python3
 # Purpose: DMZ-Svr Extras Menu. Used to easily run undocumented scripts/demos
 # Author: John Weidley
-# Version: 0.1
+# Version: 0.2
 ######################################################################################
 # ChangeLog
 # 0.1: 5Jan21: Initial Release
+# 0.2: 10Apr21: Added API CC URL
 ######################################################################################
 
 ################
@@ -24,7 +25,8 @@ def main():
 		print("|| Juniper SRX Demo Kit: Extras Menu                                 ||")
 		print("=======================================================================")
 		print("1) ATP Cloud: API: IPFilter")
-		print("2) ATP Cloud: Adaptive Threat Profiling")
+		print("2) ATP Cloud: API: CC URL")
+		print("3) ATP Cloud: Adaptive Threat Profiling")
 		print("\nq) Quit the menu")
 		print("=======================================================================")
 		choice = input("\nPlease select a menu item: ")
@@ -35,7 +37,13 @@ def main():
 			sleep(3)
 			system("/usr/local/bin/atp-api-ipfilter.sh")
 			main()
-		elif choice == "2":
+		elif choice == "3":
+			system("/usr/bin/clear")
+			print("....Updating ATP Cloud CC URL Feed...")
+			sleep(3)
+			system("/usr/local/bin/atp-api-cc-url.sh")
+			main()
+		elif choice == "3":
 			system("/usr/bin/clear")
 			print("....Running Adaptive Threat Profiling Traffic...")
 			sleep(3)
