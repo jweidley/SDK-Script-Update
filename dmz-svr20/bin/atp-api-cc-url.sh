@@ -13,8 +13,7 @@
 ##########################
 # API Token that was generated in the ATP cloud WebUI (Administration > Application Tokens)
 # The token from ATP Cloud should be inside the double quotes in 1 continuous line.
-#APPToken="ADD-YOUR-TOKEN-HERE"
-APPToken="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJlbWFpbCI6Imp3ZWlkbGV5QGp1bmlwZXIubmV0IiwidG9rZW5faWQiOiJmOTBiOWRhYy0xYzEzLTQyMmUtYmVhYi0yYWRjNDVkZWQyNTQiLCJ0b2tlbl9uYW1lIjoiUmVjb21tZW5kZWRfSVBfQmxvY2siLCJhY2Nlc3NfZ3JvdXBzIjpbIk9wZW4gQVBJIl0sImV4cCI6MTYzNzg0MTExMSwiZ2VuaWQiOiJMNFhpdnduNGp6eTBWd0htOGlWaTRLZTREMFZybFQxVVEyaGNyak5qV0ZnWDF6cndSZ1lyQ0xreVdNeEFWYmloNWF5OG5DV252TE95Skx6SEpMVUl2OGVjTFlQcnVwaWVKd0FXaWdpb0pCZz0ifQ.awf1jdpwNL4YlVmwQtthAqVcJzxz3Li8VCS-G5y89eU"
+APPToken="ADD-YOUR-TOKEN-HERE"
 
 # CC Feed name to be create in ATP Cloud
 BlockFeed="URL_Blocks"
