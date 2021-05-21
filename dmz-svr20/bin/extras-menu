@@ -40,7 +40,7 @@ CHOICE=$(whiptail --backtitle "SRX Demo Kit (dmz-svr)" --title "Extras Menu" --m
   "1." "ATP Cloud: API: IPFilter" \
   "2." "ATP Cloud: API: CC URL" \
   "3." "ATP Cloud: Adaptive Threat Profiling" \
-  "4." "Start iPerf Server" 3>&1 1>&2 2>&3)
+  "4." "Start iPerf Server - Unidirectional" 3>&1 1>&2 2>&3)
 
 if [ -z "$CHOICE" ]; then
   echo "...Leaving extras menu..."

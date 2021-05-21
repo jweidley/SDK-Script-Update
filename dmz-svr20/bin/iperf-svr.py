@@ -18,7 +18,8 @@ from os import system
 # Main
 ################
 print("############################################################################################")
-print(" iPerf Server")
+print(" iPerf Server  Unidirectional")
+print("  (--Use ctrl-c to stop the server--)")
 print("############################################################################################")
 command = "/usr/bin/iperf -s -i 1"
 system(command)
