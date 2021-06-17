@@ -1,10 +1,11 @@
 #!/usr/bin/python3
 # Purpose: vSRX SSL Forward Proxy setup on vSRX. 
-# Version: 0.1
+# Version: 0.2
 #
 ############################################################################################################
 # CHANGELOG:
 # - 0.1: Initial Release
+# - 0.2: fix ssh unknown host key issue
 ############################################################################################################
 # NOTES:
 ############################################################################################################
@@ -23,7 +24,7 @@ from jnpr.junos.exception import ConnectError
 from jnpr.junos.exception import ConnectTimeoutError
 from jnpr.junos.exception import RpcTimeoutError
 import requests
-from paramiko import SSHClient
+import paramiko
 from scp import SCPClient
 
 ################
@@ -137,8 +138,9 @@ else:
 ######################################
 # Upload CA bundle to vSRX
 ######################################
-ssh = SSHClient()
+ssh = paramiko.SSHClient()
 ssh.load_system_host_keys()
+ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 
 try:
     ssh.connect(hostname=vsrx,username=user,password=passwd)
