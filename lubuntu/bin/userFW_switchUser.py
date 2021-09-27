@@ -1,11 +1,12 @@
 #!/usr/bin/python3
 # Purpose: Periodically switch users in the SRX auth table so traffic appears to be generated from different
 #           users.
-# Version: 0.1
+# Version: 0.2
 #
 ############################################################################################################
 # CHANGELOG:
 # - 0.1: 18Sep20: Initial Release
+# - 0.2: 27Sep21: Added a function to eliminate repeated duplicate usernames & changed usernames
 ############################################################################################################
 
 ################
@@ -35,33 +36,43 @@ dev = Device(host=vsrx,gather_facts='False',user=user,password=passwd)
 
 # User Variables
 users = [                   # List of usernames to switch between
-        "jsmith",
-        "bjones",
-        "abrown",
-        "bwhite",
-        "cpeterson"
+        "johns",
+        "billj",
+        "alisonb",
+        "bettyw",
+        "craigp"
     ]
 
-switchTime = [180,300,600]  # Time (in seconds) between switching users.
+switchTime = [180,240,300]  # Time (in seconds) between switching users.
 host_ip = "192.168.100.10"  # IP of Lubuntu workstation
 roles = "Sales"             # Role to apply to users
-
+currentUser = ""
 
 ################
 # Functions
 ################
+def chooseUser(users,currentUser):
+    while True:
+        newUser = choice(users)
 
-def removeAdd(dev):
-    currentUser = choice(users)
+        if newUser != currentUser:
+            break
+
+    return newUser
+
+def removeAdd(dev,currentUser):
+    newUser = chooseUser(users,currentUser)
     print("- Removing existing host entry...")
     cmd = dev.rpc.request_userfw_local_auth_table_delete_ip(ip_address=host_ip)
 
-    print("- Adding New UserFW Entry for " + currentUser)
-    cmd = dev.rpc.request_userfw_local_auth_table_add(user_name=currentUser,ip_address=host_ip,roles="Users")
-    cmd2 = dev.rpc.request_userfw_local_auth_table_add(user_name=currentUser,ip_address=host_ip,roles=roles)
+    print("- Adding New UserFW Entry for " + newUser)
+    cmd = dev.rpc.request_userfw_local_auth_table_add(user_name=newUser,ip_address=host_ip,roles="Users")
+    cmd2 = dev.rpc.request_userfw_local_auth_table_add(user_name=newUser,ip_address=host_ip,roles=roles)
 
-def justAdd(dev):
-    currentUser = choice(users)
+    return newUser
+
+def justAdd(dev,currentUser):
+    newUser = chooseUser(users,currentUser)
     print("- Adding New UserFW Entry...")
     cmd = dev.rpc.request_userfw_local_auth_table_add(user_name=currentUser,ip_address=host_ip,roles="Users")
     cmd2 = dev.rpc.request_userfw_local_auth_table_add(user_name=currentUser,ip_address=host_ip,roles=roles)
@@ -87,7 +98,7 @@ if args.continuous:
             # Find null auth table condition (common with first run UserFW)
             if look is True:
         	    print("First Run Condition...")
-        	    justAdd(dev)
+        	    currentUser = justAdd(dev,currentUser)
             else:
 	            # Format and find the number of auth table entries
 	            formatted = etree.tostring(look)
@@ -100,10 +111,10 @@ if args.continuous:
 	            # Decide what to do based on results
 	            if int(totalLine[2]) > 0:
 	    	        print("Auth table entries found: deleting and adding...")
-	    	        removeAdd(dev)
+	    	        currentUser = removeAdd(dev,currentUser)
 	            else:
 	    	        print("No Auth Table entries found: adding...")
-	    	        justAdd(dev)
+	    	        currentUser = justAdd(dev,currentUser)
 
             # Exit
             dev.close()
